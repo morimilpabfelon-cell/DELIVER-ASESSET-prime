@@ -6,7 +6,7 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const failures = [];
 const requiredFiles = [
   'index.html', 'styles.css', 'lab.css', 'order.css', 'ecosystem.css', 'conversion.css', 'modal.css', 'responsive.css',
-  'script.js', 'catalog-data.js', 'site-core.js', 'catalog.js', 'order-demo.js', 'public-pages.js', 'public-extra.js', 'dialogs.js',
+  'script.js', 'catalog-data.js', 'site-core.js', 'catalog.js', 'order-demo.js', 'public-pages.js', 'public-extra.js', 'dialogs.js', 'organization.js',
   '.nojekyll', 'assets/hero-vision.svg', 'assets/icon-order.svg', 'assets/icon-track.svg', 'assets/icon-receive.svg',
 ];
 
@@ -36,10 +36,10 @@ if (existsSync(htmlPath)) {
   if (/<!--\s*(?:TODO|FIXME)/.test(html)) failures.push('index.html contiene marcadores pendientes');
 }
 
-const scriptFiles = ['script.js', 'catalog-data.js', 'site-core.js', 'catalog.js', 'order-demo.js', 'public-pages.js', 'public-extra.js', 'dialogs.js'];
+const scriptFiles = ['script.js', 'catalog-data.js', 'site-core.js', 'catalog.js', 'order-demo.js', 'public-pages.js', 'public-extra.js', 'dialogs.js', 'organization.js'];
 const scripts = scriptFiles.filter((file) => existsSync(join(root, file))).map((file) => readFileSync(join(root, file), 'utf8')).join('\n');
 if (scripts.includes('eval(') || scripts.includes('innerHTML')) failures.push('Los scripts usan una operación no permitida');
-for (const marker of ['BARRIO BURGER', 'coverage', 'security', 'orderStates', 'openPublic']) {
+for (const marker of ['BARRIO BURGER', 'coverage', 'security', 'orderStates', 'openPublic', 'demo-notice', 'Soporte 24/7']) {
   if (!scripts.includes(marker)) failures.push(`Los scripts no contienen: ${marker}`);
 }
 
@@ -51,4 +51,4 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`[verify:error] ${failure}`));
   process.exit(1);
 }
-console.log('[verify] Rediseño con paridad de contenido validado correctamente');
+console.log('[verify] Rediseño organizado y paridad de contenido validados correctamente');
