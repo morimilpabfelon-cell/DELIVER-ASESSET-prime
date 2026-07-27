@@ -3,7 +3,6 @@ import { dirname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
-const site = join(root, 'site');
 const failures = [];
 
 const requiredFiles = [
@@ -11,19 +10,21 @@ const requiredFiles = [
   'styles.css',
   'script.js',
   'assets/hero-vision.svg',
+  '.nojekyll',
 ];
 
 for (const file of requiredFiles) {
-  const absolute = join(site, file);
+  const absolute = join(root, file);
   if (!existsSync(absolute)) {
-    failures.push(`Falta el archivo requerido: site/${file}`);
-  } else if (statSync(absolute).size === 0) {
-    failures.push(`El archivo está vacío: site/${file}`);
+    failures.push(`Falta el archivo requerido: ${file}`);
+  } else if (file !== '.nojekyll' && statSync(absolute).size === 0) {
+    failures.push(`El archivo está vacío: ${file}`);
   }
 }
 
-if (existsSync(join(site, 'index.html'))) {
-  const html = readFileSync(join(site, 'index.html'), 'utf8');
+const htmlPath = join(root, 'index.html');
+if (existsSync(htmlPath)) {
+  const html = readFileSync(htmlPath, 'utf8');
   const requiredMarkers = [
     '<!doctype html>',
     'lang="es"',
@@ -41,8 +42,8 @@ if (existsSync(join(site, 'index.html'))) {
 
   const localRefs = [...html.matchAll(/(?:href|src)="(\.\/[^"#?]+)"/g)].map((match) => match[1]);
   for (const ref of localRefs) {
-    const target = normalize(join(dirname(join(site, 'index.html')), ref));
-    if (!target.startsWith(site) || !existsSync(target)) {
+    const target = normalize(join(dirname(htmlPath), ref));
+    if (!target.startsWith(root) || !existsSync(target)) {
       failures.push(`Referencia local inválida: ${ref}`);
     }
   }
@@ -56,11 +57,16 @@ if (existsSync(join(site, 'index.html'))) {
   }
 }
 
-if (existsSync(join(site, 'script.js'))) {
-  const script = readFileSync(join(site, 'script.js'), 'utf8');
+const scriptPath = join(root, 'script.js');
+if (existsSync(scriptPath)) {
+  const script = readFileSync(scriptPath, 'utf8');
   if (script.includes('eval(') || script.includes('innerHTML')) {
     failures.push('script.js usa una operación no permitida');
   }
+}
+
+if (existsSync(join(root, 'site'))) {
+  failures.push('La carpeta legacy site/ todavía existe; Pages debe publicar desde el raíz');
 }
 
 if (failures.length > 0) {
@@ -70,4 +76,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log('[verify] Sitio estático validado correctamente');
+console.log('[verify] Sitio raíz validado correctamente');

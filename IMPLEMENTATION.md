@@ -5,12 +5,11 @@
 El sitio usa HTML, CSS y JavaScript nativo. No instala dependencias ni ejecuta un proceso de compilación.
 
 ```text
-site/
-  index.html
-  styles.css
-  script.js
-  assets/
-    hero-vision.svg
+index.html
+styles.css
+script.js
+assets/
+  hero-vision.svg
 scripts/
   verify-site.mjs
 .github/workflows/
@@ -21,16 +20,15 @@ scripts/
 
 ```powershell
 node scripts/verify-site.mjs
-python -m http.server 8080 --directory site
+node --check script.js
+python -m http.server 8080
 ```
 
 Abrir `http://localhost:8080`.
 
 ## Despliegue
 
-El workflow valida los archivos en cada pull request. Después de fusionar en `main`, empaqueta `site/` y lo publica mediante GitHub Pages.
-
-En la configuración del repositorio, Pages debe usar **GitHub Actions** como origen de publicación.
+GitHub Pages publica directamente desde `main / (root)`, que coincide con la configuración actual del repositorio. El workflow valida el sitio en cada pull request y en cada cambio de `main`; Pages se encarga de la publicación desde la rama.
 
 ## Restricciones actuales
 
