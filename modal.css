@@ -1,9 +1,9 @@
-.site-footer { min-height: 210px; padding: 46px max(24px, calc((100vw - var(--max)) / 2)); display: grid; grid-template-columns: auto 1fr auto auto auto; gap: 34px; align-items: center; background: var(--ink); color: var(--white); }
-.footer-brand span:last-child { color: var(--accent); }
+.site-footer { min-height: 170px; padding: 38px max(24px, calc((100vw - var(--max)) / 2)); display: grid; grid-template-columns: auto 1fr auto auto auto; gap: 28px; align-items: center; background: var(--ink); color: var(--white); }
+.footer-brand { color: var(--accent); }
 .site-footer p { margin: 0; }
 .site-footer small { color: rgba(255,255,255,.45); }
-.site-footer nav { display: grid; gap: 7px; }
-.site-footer nav button { padding: 0; border: 0; background: transparent; color: rgba(255,255,255,.62); font-size: .68rem; font-weight: 900; text-align: left; cursor: pointer; }
+.site-footer nav { display: grid; gap: 6px; }
+.site-footer nav button { padding: 0; border: 0; background: transparent; color: rgba(255,255,255,.62); font-size: .64rem; font-weight: 900; text-align: left; cursor: pointer; }
 .site-footer > p:last-child { color: rgba(255,255,255,.5); }
 
 .modal { width: min(1180px, calc(100% - 30px)); max-height: calc(100vh - 30px); padding: 0; overflow: hidden; border: 2px solid var(--ink); background: var(--paper); color: var(--ink); }
