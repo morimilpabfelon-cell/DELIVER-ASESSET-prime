@@ -10,6 +10,7 @@ const requiredFiles = [
   'styles.css',
   'process.css',
   'trust.css',
+  'evidence.css',
   'script.js',
   'assets/hero-vision.svg',
   'assets/icon-order.svg',
@@ -37,9 +38,11 @@ if (existsSync(htmlPath)) {
     'id="contenido"',
     'id="como-funciona"',
     'id="cobertura"',
+    'id="evidencia"',
     'href="./styles.css"',
     'href="./process.css"',
     'href="./trust.css"',
+    'href="./evidence.css"',
     'src="./script.js"',
     'src="./assets/hero-vision.svg"',
     'src="./assets/icon-order.svg"',
@@ -48,6 +51,8 @@ if (existsSync(htmlPath)) {
     'src="./assets/coverage-map.svg"',
     'No se promete 24/7 sin personal y SLA.',
     'No representa zonas activas ni cobertura comercial actual.',
+    'SIN RESULTADOS PUBLICADOS',
+    'No se publican proyecciones como resultados.',
   ];
 
   for (const marker of requiredMarkers) {
@@ -92,4 +97,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log('[verify] Sitio, flujo operativo y confianza institucional validados correctamente');
+console.log('[verify] Sitio, confianza y marco de evidencia validados correctamente');
