@@ -1,4 +1,12 @@
 (() => {
+  const styles = [
+    './lab.css',
+    './order.css',
+    './ecosystem.css',
+    './conversion.css',
+    './modal.css',
+    './responsive.css',
+  ];
   const modules = [
     './catalog-data.js',
     './site-core.js',
@@ -8,6 +16,13 @@
     './public-extra.js',
     './dialogs.js',
   ];
+
+  styles.forEach((href) => {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = href;
+    document.head.append(link);
+  });
 
   const load = (src) => new Promise((resolve, reject) => {
     const script = document.createElement('script');
