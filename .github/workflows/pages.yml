@@ -35,8 +35,7 @@ jobs:
           name: deliver-prime-static-${{ github.sha }}
           path: |
             index.html
-            styles.css
-            process.css
+            *.css
             script.js
             assets
             .nojekyll
