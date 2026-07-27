@@ -1,0 +1,14 @@
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Local files
+*.log
+*.tmp
+
+# Generated audit files
+reports/
