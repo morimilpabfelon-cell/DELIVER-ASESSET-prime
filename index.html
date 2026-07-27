@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="./styles.css" />
     <link rel="stylesheet" href="./process.css" />
     <link rel="stylesheet" href="./trust.css" />
+    <link rel="stylesheet" href="./evidence.css" />
     <script src="./script.js" defer></script>
   </head>
   <body>
@@ -51,7 +52,7 @@
         <a href="#ecosistema">Ecosistema</a>
         <a href="#cobertura">Cobertura</a>
         <a href="#modelo">Modelo</a>
-        <a href="#ventaja">Ventaja</a>
+        <a href="#evidencia">Evidencia</a>
         <a href="#hoja-ruta">Hoja de ruta</a>
       </nav>
     </header>
@@ -225,10 +226,89 @@
         <p class="model-note">Las cifras financieras, unit economics y proyecciones se incorporarán únicamente cuando hayan sido validadas y fechadas.</p>
       </section>
 
+      <section class="evidence section" id="evidencia" aria-labelledby="evidence-title">
+        <div class="section-heading light-heading">
+          <p>06 · Evidencia</p>
+          <h2 id="evidence-title">Nada entra al pitch sin estado, fecha y fuente.</h2>
+        </div>
+        <p class="evidence-intro">La presentación separa explícitamente lo comprobado de lo supuesto. El objetivo no es llenar espacios con números: es construir una tesis que pueda sobrevivir a una diligencia seria.</p>
+
+        <div class="evidence-legend" aria-label="Estados de evidencia">
+          <article class="evidence-status evidence-status-fact">
+            <span>HECHO VERIFICABLE</span>
+            <h3>Existe evidencia.</h3>
+            <p>Documento, registro o resultado fechado que puede ser revisado por un tercero.</p>
+          </article>
+          <article class="evidence-status">
+            <span>HIPÓTESIS</span>
+            <h3>Debe probarse.</h3>
+            <p>Supuesto explícito, con método de validación y condición para aceptarlo o descartarlo.</p>
+          </article>
+          <article class="evidence-status">
+            <span>OBJETIVO</span>
+            <h3>Marca dirección.</h3>
+            <p>Resultado futuro con plazo, responsable y métrica; nunca presentado como desempeño actual.</p>
+          </article>
+          <article class="evidence-status">
+            <span>PENDIENTE</span>
+            <h3>No se conoce aún.</h3>
+            <p>Dato ausente que debe medirse antes de tomar decisiones de expansión o inversión.</p>
+          </article>
+        </div>
+
+        <div class="pilot-panel">
+          <div class="pilot-panel-header">
+            <div>
+              <span>PILOTO CONTROLADO</span>
+              <h3>Cuadro mínimo de validación.</h3>
+            </div>
+            <strong>SIN RESULTADOS PUBLICADOS</strong>
+          </div>
+
+          <table class="evidence-table">
+            <thead>
+              <tr><th>Métrica</th><th>Qué debe demostrar</th><th>Estado</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Métrica">Pedidos completados</td>
+                <td data-label="Qué debe demostrar">Capacidad de cerrar el ciclo sin intervención manual excepcional.</td>
+                <td data-label="Estado"><span class="measurement-status">POR MEDIR</span></td>
+              </tr>
+              <tr>
+                <td data-label="Métrica">Tiempo de asignación</td>
+                <td data-label="Qué debe demostrar">Correspondencia viable entre demanda, zona y capacidad de reparto.</td>
+                <td data-label="Estado"><span class="measurement-status">POR MEDIR</span></td>
+              </tr>
+              <tr>
+                <td data-label="Métrica">Contribución por pedido</td>
+                <td data-label="Qué debe demostrar">Economía unitaria después de costos variables y compensaciones.</td>
+                <td data-label="Estado"><span class="measurement-status">POR MEDIR</span></td>
+              </tr>
+              <tr>
+                <td data-label="Métrica">Repetición de clientes</td>
+                <td data-label="Qué debe demostrar">Uso recurrente sin depender únicamente de incentivos.</td>
+                <td data-label="Estado"><span class="measurement-status">POR MEDIR</span></td>
+              </tr>
+              <tr>
+                <td data-label="Métrica">Incidencias por 100 pedidos</td>
+                <td data-label="Qué debe demostrar">Calidad operativa, riesgo y capacidad real de resolución.</td>
+                <td data-label="Estado"><span class="measurement-status">POR MEDIR</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="evidence-rule" role="note">
+          <strong>Regla de inversión.</strong>
+          <span>No se publican proyecciones como resultados. Toda cifra futura debe incluir supuestos, fecha, fuente y responsable.</span>
+        </div>
+      </section>
+
       <section class="advantage section split-section" id="ventaja" aria-labelledby="advantage-title">
         <div class="advantage-copy">
           <div class="section-heading">
-            <p>06 · Ventaja</p>
+            <p>07 · Ventaja</p>
             <h2 id="advantage-title">El activo es la coordinación.</h2>
           </div>
           <p>La ventaja defensible no depende solo de una interfaz. Surge de conectar estados de pedido, disponibilidad comercial, capacidad logística y reglas operativas dentro de una misma arquitectura.</p>
@@ -255,7 +335,7 @@
 
       <section class="roadmap section dark-section" id="hoja-ruta" aria-labelledby="roadmap-title">
         <div class="section-heading light-heading">
-          <p>07 · Hoja de ruta</p>
+          <p>08 · Hoja de ruta</p>
           <h2 id="roadmap-title">De visión a plataforma operativa.</h2>
         </div>
         <ol class="roadmap-list">
