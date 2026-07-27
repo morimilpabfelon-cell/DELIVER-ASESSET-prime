@@ -28,3 +28,17 @@ jobs:
 
       - name: Check JavaScript syntax
         run: node --check script.js
+
+      - name: Upload review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: deliver-prime-static-${{ github.sha }}
+          path: |
+            index.html
+            styles.css
+            process.css
+            script.js
+            assets
+            .nojekyll
+          if-no-files-found: error
+          retention-days: 7
