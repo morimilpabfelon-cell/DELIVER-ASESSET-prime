@@ -80,8 +80,4 @@
     <circle cx="143" cy="397" r="4" fill="#31aa58" />
     <text x="150" y="400" fill="#555" font-family="Arial" font-size="7">En vivo</text>
   </g>
-
-  <rect x="22" y="20" width="166" height="30" rx="3" fill="#ffbe18" />
-  <circle cx="39" cy="35" r="4" fill="#111" />
-  <text x="50" y="39" fill="#111" font-family="Arial Black, Arial" font-size="10">OPERACIÓN EN VIVO</text>
 </svg>
