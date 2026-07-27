@@ -58,10 +58,16 @@ Acelerar `DELIVER-ASESSET-prime` reutilizando activos propios del prototipo orig
 5. Confirmar GitHub Actions en verde.
 6. No fusionar sin revisión visual.
 
+## Extracciones completadas
+
+- [x] Wordmark y tokens de marca consolidados en la página pública.
+- [x] Secuencia operativa `PIDE / SIGUE / RECIBE`.
+- [x] Iconos SVG propios de acción, ubicación y movilidad.
+- [x] Patrones de navegación, foco visible y reducción de movimiento.
+
 ## Próximas extracciones
 
-1. Consolidar wordmark y tokens de marca.
-2. Incorporar la secuencia operativa `PIDE / SIGUE / RECIBE`.
-3. Reutilizar iconos SVG propios.
-4. Revisar textos institucionales de categorías y ecosistema.
-5. Importar solo patrones responsive y accesibles que mejoren la implementación actual.
+1. Revisar textos institucionales de categorías y ecosistema.
+2. Incorporar una vista conceptual de cobertura y zonas.
+3. Reutilizar componentes de confianza y soporte sin promesas operativas no verificadas.
+4. Añadir una capa de evidencia para tesis, métricas y supuestos fechados.
