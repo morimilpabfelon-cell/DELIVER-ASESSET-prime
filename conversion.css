@@ -1,23 +1,24 @@
-.public-hub-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
-.public-hub-grid button { min-height: 330px; padding: 24px; display: flex; flex-direction: column; align-items: flex-start; border: 1px solid var(--ink); background: var(--paper-light); cursor: pointer; text-align: left; transition: transform 160ms ease, background 160ms ease; }
-.public-hub-grid button:hover { transform: translateY(-4px); background: var(--accent); }
-.public-hub-grid button > span { font-weight: 950; }
-.public-hub-grid i { margin: auto 0 20px; font-family: var(--display); font-size: 4rem; font-style: normal; }
-.public-hub-grid h3 { margin: 0; font-family: var(--display); font-size: 1.8rem; }
-.public-hub-grid p { color: var(--muted); }
-.public-hub-grid b { margin-top: auto; font-size: .7rem; }
+.public-hub { padding-top: 76px; }
+.public-hub-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.public-hub-grid button { min-height: 250px; padding: 20px; display: flex; flex-direction: column; align-items: flex-start; border: 1px solid var(--ink); background: var(--paper-light); cursor: pointer; text-align: left; transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease; }
+.public-hub-grid button:hover { transform: translateY(-4px); background: var(--accent); box-shadow: 0 12px 26px rgba(17, 17, 17, .07); }
+.public-hub-grid button > span { font-size: .65rem; font-weight: 950; }
+.public-hub-grid i { margin: 30px 0 18px; font-family: var(--display); font-size: 3rem; font-style: normal; }
+.public-hub-grid h3 { margin: 0; font-family: var(--display); font-size: 1.5rem; }
+.public-hub-grid p { margin: 8px 0 16px; color: var(--muted); font-size: .78rem; }
+.public-hub-grid b { margin-top: auto; font-size: .64rem; }
 
-.signup { display: grid; grid-template-columns: .75fr 1.25fr; gap: clamp(40px, 8vw, 120px); align-items: center; border-top: 1px solid var(--line); }
-.signup h2 { font-size: clamp(3.2rem, 7vw, 7rem); }
-.signup-form { padding: clamp(28px, 5vw, 54px); border: 2px solid var(--ink); background: var(--accent); box-shadow: 12px 12px 0 var(--ink); }
-.signup-form [data-form-fields] { display: grid; gap: 18px; }
-.signup-form label { display: grid; gap: 7px; }
-.signup-form label span { font-size: .68rem; font-weight: 950; }
-.signup-form input, .signup-form select { width: 100%; min-height: 54px; padding: 0 14px; border: 2px solid var(--ink); background: var(--paper-light); }
-.signup-form button { min-height: 54px; border: 2px solid var(--ink); background: var(--ink); color: var(--white); font-weight: 950; cursor: pointer; }
-.signup-form small { font-size: .69rem; }
-.form-success { min-height: 290px; display: grid; place-items: center; align-content: center; text-align: center; }
-.form-success > span { width: 54px; height: 54px; display: grid; place-items: center; border-radius: 50%; background: var(--ink); color: var(--accent); font-size: 1.5rem; }
-.form-success h3 { margin: 20px 0 8px; font-family: var(--display); font-size: 2rem; }
-.form-success p { max-width: 520px; }
-.form-success button { padding: 0 28px; }
+.signup { padding-block: 82px; display: grid; grid-template-columns: .78fr 1.22fr; gap: clamp(40px, 7vw, 100px); align-items: center; border-top: 1px solid var(--line); }
+.signup h2 { font-size: clamp(3.1rem, 6.2vw, 6.2rem); }
+.signup-form { padding: clamp(26px, 4vw, 44px); border: 2px solid var(--ink); background: var(--accent); box-shadow: 10px 10px 0 var(--ink); }
+.signup-form [data-form-fields] { display: grid; gap: 15px; }
+.signup-form label { display: grid; gap: 6px; }
+.signup-form label span { font-size: .64rem; font-weight: 950; }
+.signup-form input, .signup-form select { width: 100%; min-height: 50px; padding: 0 13px; border: 2px solid var(--ink); background: var(--paper-light); }
+.signup-form button { min-height: 50px; border: 2px solid var(--ink); background: var(--ink); color: var(--white); font-size: .7rem; font-weight: 950; cursor: pointer; }
+.signup-form small { font-size: .66rem; }
+.form-success { min-height: 240px; display: grid; place-items: center; align-content: center; text-align: center; }
+.form-success > span { width: 50px; height: 50px; display: grid; place-items: center; border-radius: 50%; background: var(--ink); color: var(--accent); font-size: 1.35rem; }
+.form-success h3 { margin: 17px 0 7px; font-family: var(--display); font-size: 1.8rem; }
+.form-success p { max-width: 500px; }
+.form-success button { padding: 0 26px; }
