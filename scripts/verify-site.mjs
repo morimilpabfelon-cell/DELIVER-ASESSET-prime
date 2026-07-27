@@ -9,11 +9,13 @@ const requiredFiles = [
   'index.html',
   'styles.css',
   'process.css',
+  'trust.css',
   'script.js',
   'assets/hero-vision.svg',
   'assets/icon-order.svg',
   'assets/icon-track.svg',
   'assets/icon-receive.svg',
+  'assets/coverage-map.svg',
   '.nojekyll',
 ];
 
@@ -34,13 +36,18 @@ if (existsSync(htmlPath)) {
     'lang="es"',
     'id="contenido"',
     'id="como-funciona"',
+    'id="cobertura"',
     'href="./styles.css"',
     'href="./process.css"',
+    'href="./trust.css"',
     'src="./script.js"',
     'src="./assets/hero-vision.svg"',
     'src="./assets/icon-order.svg"',
     'src="./assets/icon-track.svg"',
     'src="./assets/icon-receive.svg"',
+    'src="./assets/coverage-map.svg"',
+    'No se promete 24/7 sin personal y SLA.',
+    'No representa zonas activas ni cobertura comercial actual.',
   ];
 
   for (const marker of requiredMarkers) {
@@ -85,4 +92,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log('[verify] Sitio raíz y flujo operativo validados correctamente');
+console.log('[verify] Sitio, flujo operativo y confianza institucional validados correctamente');
