@@ -1,45 +1,38 @@
 (() => {
-  const toggle = document.querySelector('[data-menu-toggle]');
-  const navigation = document.querySelector('[data-navigation]');
-  const year = document.querySelector('[data-year]');
+  const styles = [
+    './lab.css',
+    './order.css',
+    './ecosystem.css',
+    './conversion.css',
+    './modal.css',
+    './responsive.css',
+  ];
+  const modules = [
+    './catalog-data.js',
+    './site-core.js',
+    './catalog.js',
+    './order-demo.js',
+    './public-pages.js',
+    './public-extra.js',
+    './dialogs.js',
+  ];
 
-  if (year) {
-    year.textContent = String(new Date().getFullYear());
-  }
-
-  if (!toggle || !navigation) {
-    return;
-  }
-
-  const closeMenu = () => {
-    toggle.setAttribute('aria-expanded', 'false');
-    navigation.classList.remove('is-open');
-    document.body.classList.remove('menu-open');
-  };
-
-  toggle.addEventListener('click', () => {
-    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!isOpen));
-    navigation.classList.toggle('is-open', !isOpen);
-    document.body.classList.toggle('menu-open', !isOpen);
+  styles.forEach((href) => {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = href;
+    document.head.append(link);
   });
 
-  navigation.addEventListener('click', (event) => {
-    if (event.target instanceof HTMLAnchorElement) {
-      closeMenu();
-    }
+  const load = (src) => new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = src;
+    script.async = false;
+    script.addEventListener('load', resolve, { once: true });
+    script.addEventListener('error', () => reject(new Error(`No se pudo cargar ${src}`)), { once: true });
+    document.head.append(script);
   });
 
-  window.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-      closeMenu();
-      toggle.focus();
-    }
-  });
-
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 820) {
-      closeMenu();
-    }
-  });
+  modules.reduce((chain, src) => chain.then(() => load(src)), Promise.resolve())
+    .catch((error) => console.error('[deliver-prime]', error));
 })();
