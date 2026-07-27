@@ -15,6 +15,7 @@
     './public-pages.js',
     './public-extra.js',
     './dialogs.js',
+    './organization.js',
   ];
 
   styles.forEach((href) => {
