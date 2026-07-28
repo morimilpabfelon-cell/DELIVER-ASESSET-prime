@@ -8,17 +8,9 @@
 .public-hub-grid p { margin: 8px 0 16px; color: var(--muted); font-size: .78rem; }
 .public-hub-grid b { margin-top: auto; font-size: .64rem; }
 
-.signup { padding-block: 82px; display: grid; grid-template-columns: .78fr 1.22fr; gap: clamp(40px, 7vw, 100px); align-items: center; border-top: 1px solid var(--line); }
-.signup h2 { font-size: clamp(3.1rem, 6.2vw, 6.2rem); }
-.signup-form { padding: clamp(26px, 4vw, 44px); border: 2px solid var(--ink); background: var(--accent); box-shadow: 10px 10px 0 var(--ink); }
-.signup-form [data-form-fields] { display: grid; gap: 15px; }
-.signup-form label { display: grid; gap: 6px; }
-.signup-form label span { font-size: .64rem; font-weight: 950; }
-.signup-form input, .signup-form select { width: 100%; min-height: 50px; padding: 0 13px; border: 2px solid var(--ink); background: var(--paper-light); }
-.signup-form button { min-height: 50px; border: 2px solid var(--ink); background: var(--ink); color: var(--white); font-size: .7rem; font-weight: 950; cursor: pointer; }
-.signup-form small { font-size: .66rem; }
-.form-success { min-height: 240px; display: grid; place-items: center; align-content: center; text-align: center; }
-.form-success > span { width: 50px; height: 50px; display: grid; place-items: center; border-radius: 50%; background: var(--ink); color: var(--accent); font-size: 1.35rem; }
-.form-success h3 { margin: 17px 0 7px; font-family: var(--display); font-size: 1.8rem; }
-.form-success p { max-width: 500px; }
-.form-success button { padding: 0 26px; }
+.contact-cta { padding-block: 82px; display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(40px, 7vw, 100px); align-items: center; border-top: 1px solid var(--line); }
+.contact-cta h2 { font-size: clamp(3.1rem, 6.2vw, 6.2rem); }
+.contact-actions { padding: clamp(28px, 4vw, 46px); display: grid; gap: 14px; border: 2px solid var(--ink); background: var(--accent); box-shadow: 10px 10px 0 var(--ink); }
+.contact-actions p { max-width: 650px; margin: 0 0 8px; font-size: clamp(.94rem, 1.2vw, 1.08rem); }
+.contact-actions .button { justify-self: start; }
+.contact-actions .button-dark-outline { border-color: var(--ink); color: var(--ink); background: transparent; }
