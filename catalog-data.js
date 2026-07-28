@@ -22,7 +22,7 @@ const stores = {
 };
 
 const orderStates = [
-  { label: 'ELIGE UN PRODUCTO', detail: 'La simulación comienza cuando agregas algo.', step: 0 },
+  { label: 'ELIGE UN PRODUCTO', detail: 'El recorrido comienza cuando agregas un producto.', step: 0 },
   { label: 'PEDIDO LISTO', detail: 'Confirma para iniciar el recorrido.', step: 1 },
   { label: 'CONFIRMANDO', detail: 'El comercio está preparando tu pedido.', step: 2 },
   { label: 'REPARTIDOR ASIGNADO', detail: 'El repartidor ya va hacia el comercio.', step: 3 },
