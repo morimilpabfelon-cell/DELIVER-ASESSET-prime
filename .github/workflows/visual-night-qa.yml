@@ -1,0 +1,87 @@
+name: Figma night visual QA
+
+on:
+  push:
+    branches: [feat/figma-night-rebuild]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  visual-qa:
+    if: github.actor != 'github-actions[bot]' || contains(github.event.head_commit.message, 'visual')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify static implementation
+        run: node scripts/verify-site.mjs
+
+      - name: Install browser
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0 >/dev/null 2>&1
+          npx playwright install --with-deps chromium
+
+      - name: Start static server
+        run: |
+          python3 -m http.server 8080 --bind 127.0.0.1 > /tmp/deliver-server.log 2>&1 &
+          echo $! > /tmp/deliver-server.pid
+          for attempt in {1..20}; do
+            curl --fail --silent http://127.0.0.1:8080/ >/dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/deliver-server.log
+          exit 1
+
+      - name: Capture desktop tablet and mobile
+        run: |
+          mkdir -p visual/actual
+          cat > /tmp/capture.mjs <<'EOF'
+          import { chromium } from 'playwright';
+          const browser = await chromium.launch({ headless: true });
+          const views = [
+            ['desktop', 1440, 900],
+            ['tablet', 768, 900],
+            ['mobile', 390, 844],
+          ];
+          for (const [name, width, height] of views) {
+            const page = await browser.newPage({ viewport: { width, height }, deviceScaleFactor: 1 });
+            await page.goto('http://127.0.0.1:8080/', { waitUntil: 'networkidle' });
+            await page.evaluate(async () => document.fonts.ready);
+            await page.screenshot({ path: `visual/actual/${name}.png`, fullPage: true });
+            const size = await page.evaluate(() => ({ width: document.documentElement.scrollWidth, height: document.documentElement.scrollHeight }));
+            console.log(`${name}: ${size.width}x${size.height}`);
+            await page.close();
+          }
+          await browser.close();
+          EOF
+          node /tmp/capture.mjs
+
+      - name: Download current Figma references
+        shell: bash
+        run: |
+          mkdir -p visual/reference
+          curl -L --fail --retry 3 'https://www.figma.com/api/mcp/asset/eb9c5f7c-405a-483b-842e-be8824ca6d0b' -o visual/reference/desktop.png
+          curl -L --fail --retry 3 'https://www.figma.com/api/mcp/asset/681e338f-a2db-4c63-bbcb-7f4984d3c43d' -o visual/reference/tablet.png
+          curl -L --fail --retry 3 'https://www.figma.com/api/mcp/asset/bbf928c2-85db-43d9-a9b9-b401120359a1' -o visual/reference/mobile.png
+
+      - name: Generate visual contact sheets
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y imagemagick >/dev/null
+          mkdir -p visual/compare
+          for view in desktop tablet mobile; do
+            ref_size=$(identify -format '%wx%h' "visual/reference/$view.png")
+            convert "visual/actual/$view.png" -resize "$ref_size!" "visual/compare/${view}-actual-normalized.png"
+            convert "visual/reference/$view.png" "visual/compare/${view}-actual-normalized.png" +append "visual/compare/${view}-side-by-side.png"
+            compare -metric RMSE "visual/reference/$view.png" "visual/compare/${view}-actual-normalized.png" "visual/compare/${view}-diff.png" 2> "visual/compare/${view}-rmse.txt" || true
+            echo "$view RMSE: $(cat visual/compare/${view}-rmse.txt)"
+          done
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: figma-night-visual-qa
+          path: visual
+          retention-days: 14
