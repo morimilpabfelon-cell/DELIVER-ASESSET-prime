@@ -5,8 +5,18 @@ Rediseño público de DELIVER ASSETS para presentar la visión del producto con 
 ## Fuente de verdad
 
 - Contenido y narrativa: `DELIVER-ASSETS`.
-- Diseño visual: `DELIVER-ASESSET-prime`.
+- Diseño visual: Figma `Strong Vision Master`.
+- Implementación pública: `DELIVER-ASESSET-prime`.
 - Publicación: GitHub Pages desde `main / (root)`.
+
+## Variantes visuales
+
+Las dos variantes comparten la misma estructura funcional, pero sus estilos permanecen aislados:
+
+- Noche, variante existente y predeterminada: `/index.html`.
+- Día, basada en `DAY FINAL` de Figma: `/day.html`.
+
+`day-final.css` solo se activa cuando el documento contiene `data-theme="day"`. El render nocturno no recibe reglas visuales de la variante diurna.
 
 ## Ejecución local
 
@@ -19,11 +29,15 @@ node --check order-demo.js
 node --check public-pages.js
 node --check public-extra.js
 node --check dialogs.js
+node --check day-theme.js
 node scripts/verify-site.mjs
 python -m http.server 8080
 ```
 
-Abrir `http://localhost:8080`.
+Abrir:
+
+- Noche: `http://localhost:8080/`.
+- Día: `http://localhost:8080/day.html`.
 
 ## Restricciones
 
