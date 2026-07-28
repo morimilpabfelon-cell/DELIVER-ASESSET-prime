@@ -156,7 +156,13 @@ if (existsSync(dayStylePath)) {
   for (const marker of ['html[data-theme="day"]', 'hero-official.svg', '.public-hub-grid', '.manifesto', '.product-lab', '.process-grid', '.ecosystem-panel', '@media (max-width: 860px)', 'prefers-reduced-motion']) {
     if (!dayStyle.includes(marker)) failures.push(`day-final.css no contiene: ${marker}`);
   }
-  if (/^(?!\s*\/\*)[^\n]*\.(?:hero|categories|product-lab)/m.test(dayStyle)) failures.push('day-final.css contiene selectores de tema potencialmente no encapsulados');
+  const unscopedSelector = dayStyle.split('\n').find((line) => {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('/*') || trimmed.startsWith('*') || trimmed.startsWith('@')) return false;
+    if (!/\.(?:hero|categories|public-hub|manifesto|product-lab|process|ecosystem|contact-cta|site-footer)\b/.test(trimmed)) return false;
+    return !trimmed.startsWith('html[data-theme="day"]');
+  });
+  if (unscopedSelector) failures.push(`day-final.css contiene selector no encapsulado: ${unscopedSelector.trim()}`);
 }
 
 const heroVectorPath = join(root, 'assets/hero-night-v2.svg');
