@@ -11,7 +11,7 @@ const requiredFiles = [
   'script.js', 'catalog-data.js', 'site-core.js', 'catalog.js', 'order-demo.js', 'public-pages.js', 'public-extra.js', 'dialogs.js', 'night-theme.js', 'day-theme.js',
   '.nojekyll', 'assets/hero-official.svg', 'assets/hero-strong-v2.webp', 'assets/hero-night-v2.svg',
   'assets/business-ops-v2.svg', 'assets/rider-ops-v2.svg',
-  'assets/night-category-food.png', 'assets/night-category-market.png', 'assets/night-category-pharmacy.png', 'assets/night-category-shipping.png',
+  'assets/night-category-food.svg', 'assets/night-category-market.svg', 'assets/night-category-pharmacy.svg', 'assets/night-category-shipping.svg',
   'assets/og-deliver-assets.svg', 'assets/favicon.svg', 'assets/icon-order.svg', 'assets/icon-track.svg', 'assets/icon-receive.svg',
 ];
 
@@ -168,7 +168,7 @@ const assertScopedTheme = (file, scope, markers) => {
 assertScopedTheme('night-final.css', 'html[data-theme="night"]', [
   'Authoritative visual source: Figma frames 2:77, 2:229 and 2:381',
   'html[data-theme="night"]',
-  'night-category-food.png',
+  '.category-card .category-icon',
   '.public-hub-grid',
   '.manifesto',
   '.product-lab',
@@ -194,7 +194,7 @@ assertScopedTheme('day-final.css', 'html[data-theme="day"]', [
 const nightThemePath = join(root, 'night-theme.js');
 if (existsSync(nightThemePath)) {
   const nightTheme = readFileSync(nightThemePath, 'utf8');
-  for (const marker of ["dataset.theme === 'day'", "dataset.theme = 'night'", '02 / QUÉ NECESITAS HOY', '03 / MANIFIESTO', '08 / CONTACTO', 'night-category-shipping.png']) {
+  for (const marker of ["dataset.theme === 'day'", "dataset.theme = 'night'", '02 / QUÉ NECESITAS HOY', '03 / MANIFIESTO', '08 / CONTACTO', 'night-category-shipping.svg']) {
     if (!nightTheme.includes(marker)) failures.push(`night-theme.js no contiene: ${marker}`);
   }
 }
