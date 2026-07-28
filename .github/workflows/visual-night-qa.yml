@@ -40,6 +40,7 @@ jobs:
         run: |
           mkdir -p visual/actual visual/runtime
           cat > visual/runtime/capture.mjs <<'EOF'
+          import { writeFile } from 'node:fs/promises';
           import { chromium } from 'playwright';
 
           const browser = await chromium.launch({ headless: true });
@@ -48,6 +49,7 @@ jobs:
             ['tablet', 768, 900],
             ['mobile', 390, 844],
           ];
+          const selectors = ['.header', '.hero', '.categories', '.trust-strip', '.manifesto', '.experience', '.process', '.ecosystem', '.contact', '.footer'];
 
           try {
             for (const [name, width, height] of views) {
@@ -59,18 +61,36 @@ jobs:
               page.on('pageerror', (error) => consoleErrors.push(error.message));
 
               await page.goto('http://127.0.0.1:8080/', { waitUntil: 'load', timeout: 30000 });
+              await page.waitForFunction(() => document.documentElement.dataset.tuning === 'ready', null, { timeout: 10000 });
               await page.evaluate(async () => {
                 await Promise.race([
                   document.fonts.ready,
                   new Promise((resolve) => setTimeout(resolve, 5000)),
                 ]);
               });
+
+              const metrics = await page.evaluate((targets) => {
+                const rects = Object.fromEntries(targets.map((selector) => {
+                  const node = document.querySelector(selector);
+                  if (!node) return [selector, null];
+                  const rect = node.getBoundingClientRect();
+                  return [selector, { x: rect.x, y: rect.y + scrollY, width: rect.width, height: rect.height }];
+                }));
+                return {
+                  viewport: { width: innerWidth, height: innerHeight },
+                  document: { width: document.documentElement.scrollWidth, height: document.documentElement.scrollHeight },
+                  font: {
+                    loaded: document.fonts.check('900 16px Inter'),
+                    family: getComputedStyle(document.querySelector('.hero h1')).fontFamily,
+                  },
+                  tuning: document.documentElement.dataset.tuning,
+                  rects,
+                };
+              }, selectors);
+
               await page.screenshot({ path: `visual/actual/${name}.png`, fullPage: true });
-              const size = await page.evaluate(() => ({
-                width: document.documentElement.scrollWidth,
-                height: document.documentElement.scrollHeight,
-              }));
-              console.log(`${name}: ${size.width}x${size.height}`);
+              await writeFile(`visual/actual/${name}-metrics.json`, JSON.stringify(metrics, null, 2));
+              console.log(`${name}: ${metrics.document.width}x${metrics.document.height}; Inter=${metrics.font.loaded}; tuning=${metrics.tuning}`);
               if (consoleErrors.length) console.warn(`${name} browser errors: ${consoleErrors.join(' | ')}`);
               await page.close();
             }
