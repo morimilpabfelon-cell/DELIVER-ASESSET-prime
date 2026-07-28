@@ -9,6 +9,7 @@
     './polish.css',
     './strong-vision.css',
     './strong-vision-hero.css',
+    './strong-vision-experience.css',
   ];
   const modules = [
     './catalog-data.js',

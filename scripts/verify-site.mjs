@@ -7,9 +7,10 @@ const failures = [];
 const requiredFiles = [
   'index.html', '404.html', 'robots.txt', 'sitemap.xml', 'site.webmanifest',
   'styles.css', 'lab.css', 'order.css', 'ecosystem.css', 'conversion.css', 'modal.css', 'responsive.css', 'polish.css',
-  'strong-vision.css', 'strong-vision-hero.css',
+  'strong-vision.css', 'strong-vision-hero.css', 'strong-vision-experience.css',
   'script.js', 'catalog-data.js', 'site-core.js', 'catalog.js', 'order-demo.js', 'public-pages.js', 'public-extra.js', 'dialogs.js',
   '.nojekyll', 'assets/hero-official.svg', 'assets/hero-strong-v2.webp', 'assets/hero-night-v2.svg',
+  'assets/business-ops-v2.svg', 'assets/rider-ops-v2.svg',
   'assets/og-deliver-assets.svg', 'assets/favicon.svg', 'assets/icon-order.svg', 'assets/icon-track.svg', 'assets/icon-receive.svg',
 ];
 
@@ -109,7 +110,7 @@ for (const iconClass of ['category-icon', 'tab-icon', 'hub-icon']) {
 const scriptFiles = ['script.js', 'catalog-data.js', 'site-core.js', 'catalog.js', 'order-demo.js', 'public-pages.js', 'public-extra.js', 'dialogs.js'];
 const scripts = scriptFiles.filter((file) => existsSync(join(root, file))).map((file) => readFileSync(join(root, file), 'utf8')).join('\n');
 if (scripts.includes('eval(') || scripts.includes('innerHTML')) failures.push('Los scripts usan una operación no permitida');
-for (const marker of ['polish.css', 'strong-vision.css', 'strong-vision-hero.css', 'BARRIO BURGER', 'store-mark', 'store-meta', 'coverage', 'security', 'contact', 'orderStates', 'openPublic']) {
+for (const marker of ['polish.css', 'strong-vision.css', 'strong-vision-hero.css', 'strong-vision-experience.css', 'BARRIO BURGER', 'store-mark', 'store-meta', 'coverage', 'security', 'contact', 'orderStates', 'openPublic']) {
   if (!scripts.includes(marker)) failures.push(`Los scripts no contienen: ${marker}`);
 }
 for (const text of ['La simulación', 'demostración visual', 'No operativos', 'data-signup-form']) {
@@ -132,11 +133,30 @@ if (existsSync(heroStylePath)) {
   }
 }
 
+const experienceStylePath = join(root, 'strong-vision-experience.css');
+if (existsSync(experienceStylePath)) {
+  const experience = readFileSync(experienceStylePath, 'utf8');
+  for (const marker of ['.product-lab', '.process-grid', 'business-ops-v2.svg', 'rider-ops-v2.svg', '@media (max-width: 580px)', 'prefers-reduced-motion']) {
+    if (!experience.includes(marker)) failures.push(`strong-vision-experience.css no contiene: ${marker}`);
+  }
+}
+
 const heroVectorPath = join(root, 'assets/hero-night-v2.svg');
 if (existsSync(heroVectorPath)) {
   const heroVector = readFileSync(heroVectorPath, 'utf8');
   for (const marker of ['width="1200"', 'height="900"', 'DELIVER ASSETS', 'EN CAMINO']) {
     if (!heroVector.includes(marker)) failures.push(`hero-night-v2.svg no contiene: ${marker}`);
+  }
+}
+
+for (const [file, markers] of [
+  ['assets/business-ops-v2.svg', ['width="1200"', 'height="800"', 'Panel operativo para negocios']],
+  ['assets/rider-ops-v2.svg', ['width="1200"', 'height="800"', 'Ruta operativa para repartidores']],
+]) {
+  const path = join(root, file);
+  if (existsSync(path)) {
+    const asset = readFileSync(path, 'utf8');
+    for (const marker of markers) if (!asset.includes(marker)) failures.push(`${file} no contiene: ${marker}`);
   }
 }
 
@@ -149,4 +169,4 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`[verify:error] ${failure}`));
   process.exit(1);
 }
-console.log('[verify] Pulido, SEO, Pages y Strong Vision v2 validados correctamente');
+console.log('[verify] Strong Vision v2, experiencia, SEO y Pages validados correctamente');
