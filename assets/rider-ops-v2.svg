@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">Ruta operativa para repartidores</title>
+  <desc id="desc">Mapa nocturno abstracto con ruta, puntos de entrega y teléfono de seguimiento.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b0d0f"/><stop offset="1" stop-color="#020303"/>
+    </linearGradient>
+    <filter id="shadow" x="-25%" y="-25%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="26" stdDeviation="25" flood-color="#000" flood-opacity=".5"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <circle cx="205" cy="160" r="230" fill="#ffc400" opacity=".08"/>
+  <g stroke="#7b8489" opacity=".13" fill="none">
+    <path d="M-60 112 1260 650M-80 310 1210 40M40 800 1130-20M300 820 1160 250" stroke-width="18"/>
+    <path d="M-20 220 1180 730M-50 480 1120 120M180 820 1000-40" stroke-width="5"/>
+  </g>
+  <g fill="#171b1d" stroke="#282e31" stroke-width="2">
+    <path d="M62 72h192v116H62zM310 38h218v154H310zM598 64h184v118H598zM840 38h286v158H840z"/>
+    <path d="M30 272h240v164H30zM334 250h174v138H334zM568 256h268v168H568zM904 272h252v150H904z"/>
+    <path d="M66 520h210v190H66zM336 500h248v204H336zM650 512h190v190H650zM906 498h230v210H906z"/>
+  </g>
+  <path d="M118 642C244 530 296 548 384 430s170 4 270-118 218 48 402-126" fill="none" stroke="#22282b" stroke-width="34" stroke-linecap="round"/>
+  <path d="M118 642C244 530 296 548 384 430s170 4 270-118 218 48 402-126" fill="none" stroke="#ffc400" stroke-width="9" stroke-linecap="round" stroke-dasharray="26 16"/>
+  <g filter="url(#shadow)">
+    <circle cx="118" cy="642" r="29" fill="#f5f1e8" stroke="#111" stroke-width="6"/>
+    <circle cx="654" cy="312" r="31" fill="#111" stroke="#ffc400" stroke-width="7"/>
+    <path d="m643 312 22-14v28Z" fill="#ffc400"/>
+    <circle cx="1056" cy="186" r="31" fill="#ffc400" stroke="#111" stroke-width="6"/>
+    <path d="M1044 187h24M1056 175v24" stroke="#111" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(720 128) rotate(7 150 285)" filter="url(#shadow)">
+    <rect width="300" height="570" rx="48" fill="#050606" stroke="#3a4144" stroke-width="4"/>
+    <rect x="16" y="18" width="268" height="532" rx="36" fill="#111416"/>
+    <rect x="102" y="10" width="96" height="24" rx="12" fill="#020303"/>
+    <text x="34" y="68" fill="#f5f1e8" font-family="Arial, sans-serif" font-size="13" font-weight="700">9:41</text>
+    <text x="150" y="108" fill="#f5f1e8" font-family="Arial, sans-serif" font-size="20" font-weight="900" text-anchor="middle">RUTA ACTIVA</text>
+    <rect x="34" y="132" width="232" height="76" rx="18" fill="#1a1f21" stroke="#ffc400" stroke-width="2"/>
+    <circle cx="68" cy="170" r="17" fill="#ffc400"/>
+    <rect x="98" y="151" width="120" height="12" rx="6" fill="#f5f1e8" opacity=".86"/>
+    <rect x="98" y="178" width="92" height="9" rx="4.5" fill="#778084"/>
+    <rect x="34" y="230" width="232" height="214" rx="22" fill="#0b0d0e"/>
+    <path d="M54 398c44-58 70-24 98-86 24-52 57-8 90-50" fill="none" stroke="#343a3d" stroke-width="16" stroke-linecap="round"/>
+    <path d="M54 398c44-58 70-24 98-86 24-52 57-8 90-50" fill="none" stroke="#ffc400" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="54" cy="398" r="12" fill="#f5f1e8"/>
+    <circle cx="152" cy="312" r="15" fill="#111" stroke="#ffc400" stroke-width="4"/>
+    <circle cx="242" cy="262" r="12" fill="#ffc400"/>
+    <rect x="34" y="466" width="232" height="58" rx="18" fill="#ffc400"/>
+    <rect x="66" y="487" width="168" height="14" rx="7" fill="#111" opacity=".9"/>
+  </g>
+  <g transform="translate(118 118)" filter="url(#shadow)">
+    <circle cx="170" cy="420" r="72" fill="#070808" stroke="#353b3e" stroke-width="12"/>
+    <circle cx="398" cy="420" r="72" fill="#070808" stroke="#353b3e" stroke-width="12"/>
+    <path d="M170 420l72-112h95l61 112M242 308l-28 112h184M272 308l64 112" fill="none" stroke="#ffc400" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M263 270c-12-76 20-158 91-177 61-17 117 29 112 94-2 27-14 55-28 85l-34 72-132-10Z" fill="#15191b"/>
+    <circle cx="390" cy="126" r="45" fill="#b97b66"/>
+    <path d="M345 118c8-36 57-55 91-27 13 11 20 27 21 44-36-16-72-16-112-4Z" fill="#050606"/>
+    <path d="M300 178c43-21 104-15 139 18l-27 119-132-8Z" fill="#202527"/>
+    <path d="M303 194h102v84H303Z" fill="#050606" stroke="#ffc400" stroke-width="4"/>
+    <text x="354" y="230" fill="#ffc400" font-family="Arial, sans-serif" font-size="30" font-weight="900" text-anchor="middle">DA</text>
+    <path d="M300 200 216 222l-8 105 96 13Z" fill="#090a0b" stroke="#ffc400" stroke-width="5"/>
+  </g>
+</svg>
