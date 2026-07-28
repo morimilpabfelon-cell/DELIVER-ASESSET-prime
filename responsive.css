@@ -25,7 +25,7 @@
   .hero-copy { min-height: 510px; }
   .hero-visual { min-height: 390px; }
   .section { width: calc(100% - 28px); padding-block: 64px; }
-  .manifesto-layout, .signup, .lab-intro { grid-template-columns: 1fr; }
+  .manifesto-layout, .contact-cta, .lab-intro { grid-template-columns: 1fr; }
   .manifesto-layout { align-items: start; }
   .lab-shell { grid-template-columns: 1fr; box-shadow: 7px 7px 0 var(--accent); }
   .order-console { padding: 22px 16px; }
@@ -50,7 +50,7 @@
   .hero-trust { padding-top: 24px; }
   .hero-visual { min-height: 320px; }
   .section-heading { margin-bottom: 25px; }
-  .manifesto h2, .section-heading h2, .signup h2 { overflow-wrap: normal; word-break: normal; }
+  .manifesto h2, .section-heading h2, .contact-cta h2 { overflow-wrap: normal; word-break: normal; }
   .manifesto h2 { font-size: clamp(3rem, 15vw, 4.25rem); }
   .category-grid, .public-hub-grid { grid-template-columns: 1fr; gap: 9px; }
   .category-card { min-height: 132px; padding: 15px; display: grid; grid-template-columns: 48px 1fr auto; grid-template-rows: auto auto auto; gap: 3px 12px; align-items: center; }
@@ -74,7 +74,7 @@
   .public-hub-grid h3 { grid-column: 2; grid-row: 1; font-size: 1.3rem; }
   .public-hub-grid p { grid-column: 2 / 4; grid-row: 2; margin: 0; font-size: .71rem; }
   .public-hub-grid b { grid-column: 2; grid-row: 3; margin: 3px 0 0; }
-  .signup-form { box-shadow: 7px 7px 0 var(--ink); }
+  .contact-actions { box-shadow: 7px 7px 0 var(--ink); }
   .role-grid { grid-template-columns: 1fr; }
   .modal { width: calc(100% - 14px); max-height: calc(100vh - 14px); }
   .modal-shell { max-height: calc(100vh - 18px); }
