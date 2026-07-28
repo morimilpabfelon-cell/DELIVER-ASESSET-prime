@@ -58,6 +58,9 @@
 
 @media (max-width: 900px) and (min-width: 601px) {
   .categories { padding-top: 28px; }
+  .ecosystem-card h2 { letter-spacing: -.06em; }
+  .contact h2 { width: 360px; }
+
   .ecosystem-card.business::before {
     background: linear-gradient(180deg, rgba(6, 7, 8, .86), rgba(6, 7, 8, .62) 68%, rgba(6, 7, 8, .52));
   }
@@ -67,6 +70,8 @@
 }
 
 @media (max-width: 600px) {
+  .site { padding-bottom: 26px; }
+
   .hero h1,
   .categories h2,
   .manifesto h2,
