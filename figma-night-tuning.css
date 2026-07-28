@@ -91,7 +91,7 @@
 
   .trust-strip article { gap: 0; }
   .process { padding-top: 73px; }
-  .process > h2 { font-size: 29px; letter-spacing: -.035em; }
+  .process > h2 { font-size: 34px; letter-spacing: -.065em; }
 
   .ecosystem-card.business::before {
     background: linear-gradient(180deg, rgba(6, 7, 8, .9), rgba(6, 7, 8, .68) 64%, rgba(6, 7, 8, .72));
