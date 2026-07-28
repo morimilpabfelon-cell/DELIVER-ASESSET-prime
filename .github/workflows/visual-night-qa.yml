@@ -38,27 +38,47 @@ jobs:
 
       - name: Capture desktop tablet and mobile
         run: |
-          mkdir -p visual/actual
-          cat > /tmp/capture.mjs <<'EOF'
+          mkdir -p visual/actual visual/runtime
+          cat > visual/runtime/capture.mjs <<'EOF'
           import { chromium } from 'playwright';
+
           const browser = await chromium.launch({ headless: true });
           const views = [
             ['desktop', 1440, 900],
             ['tablet', 768, 900],
             ['mobile', 390, 844],
           ];
-          for (const [name, width, height] of views) {
-            const page = await browser.newPage({ viewport: { width, height }, deviceScaleFactor: 1 });
-            await page.goto('http://127.0.0.1:8080/', { waitUntil: 'networkidle' });
-            await page.evaluate(async () => document.fonts.ready);
-            await page.screenshot({ path: `visual/actual/${name}.png`, fullPage: true });
-            const size = await page.evaluate(() => ({ width: document.documentElement.scrollWidth, height: document.documentElement.scrollHeight }));
-            console.log(`${name}: ${size.width}x${size.height}`);
-            await page.close();
+
+          try {
+            for (const [name, width, height] of views) {
+              const page = await browser.newPage({ viewport: { width, height }, deviceScaleFactor: 1 });
+              const consoleErrors = [];
+              page.on('console', (message) => {
+                if (message.type() === 'error') consoleErrors.push(message.text());
+              });
+              page.on('pageerror', (error) => consoleErrors.push(error.message));
+
+              await page.goto('http://127.0.0.1:8080/', { waitUntil: 'load', timeout: 30000 });
+              await page.evaluate(async () => {
+                await Promise.race([
+                  document.fonts.ready,
+                  new Promise((resolve) => setTimeout(resolve, 5000)),
+                ]);
+              });
+              await page.screenshot({ path: `visual/actual/${name}.png`, fullPage: true });
+              const size = await page.evaluate(() => ({
+                width: document.documentElement.scrollWidth,
+                height: document.documentElement.scrollHeight,
+              }));
+              console.log(`${name}: ${size.width}x${size.height}`);
+              if (consoleErrors.length) console.warn(`${name} browser errors: ${consoleErrors.join(' | ')}`);
+              await page.close();
+            }
+          } finally {
+            await browser.close();
           }
-          await browser.close();
           EOF
-          node /tmp/capture.mjs
+          node visual/runtime/capture.mjs
 
       - name: Download current Figma references
         shell: bash
