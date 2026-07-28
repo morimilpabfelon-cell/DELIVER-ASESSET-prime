@@ -10,6 +10,7 @@
     './strong-vision.css',
     './strong-vision-hero.css',
     './strong-vision-experience.css',
+    './day-final.css',
   ];
   const modules = [
     './catalog-data.js',
@@ -19,6 +20,7 @@
     './public-pages.js',
     './public-extra.js',
     './dialogs.js',
+    './day-theme.js',
   ];
 
   styles.forEach((href) => {
