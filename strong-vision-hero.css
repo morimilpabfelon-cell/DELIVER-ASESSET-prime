@@ -11,9 +11,9 @@
   z-index: 1;
   top: 0;
   left: 0;
-  width: min(280px, 38%);
-  height: 92px;
-  background: linear-gradient(90deg, rgba(8, 10, 12, .99), rgba(8, 10, 12, .88) 64%, transparent);
+  width: min(190px, 26%);
+  height: 78px;
+  background: linear-gradient(90deg, rgba(8, 10, 12, .97), rgba(8, 10, 12, .72) 48%, rgba(8, 10, 12, .24) 78%, transparent);
   pointer-events: none;
 }
 .hero-visual::after {
@@ -28,7 +28,7 @@
     background-position: 54% center;
     background-size: cover;
   }
-  .hero-visual::before { width: 32%; height: 72px; }
+  .hero-visual::before { width: 24%; height: 64px; }
 }
 
 @media (max-width: 580px) {
@@ -61,5 +61,5 @@
     min-height: 350px;
     background-position: 52% center;
   }
-  .hero-visual::before { width: 31%; height: 58px; }
+  .hero-visual::before { width: 22%; height: 52px; }
 }
