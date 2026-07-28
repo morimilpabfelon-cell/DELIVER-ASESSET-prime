@@ -1,0 +1,50 @@
+name: Finalize Prime branch
+
+on:
+  push:
+    branches:
+      - design/final-polish-seo
+    paths:
+      - .github/workflows/finalize-prime.yml
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Apply reviewed payload
+        run: node .prime-finalize/apply.mjs
+
+      - name: Verify static site
+        run: node scripts/verify-site.mjs
+
+      - name: Check JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          for file in script.js catalog-data.js site-core.js catalog.js order-demo.js public-pages.js public-extra.js dialogs.js; do
+            node --check "$file"
+          done
+
+      - name: Commit finalized site
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$(git status --short)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "style: finalize Prime visual polish and Pages metadata"
+          git push origin HEAD:design/final-polish-seo
