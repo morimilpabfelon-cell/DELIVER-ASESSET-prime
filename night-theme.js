@@ -33,19 +33,19 @@
   const categoryContent = {
     comida: {
       copy: 'Restaurantes y más.',
-      icon: './assets/night-category-food.png',
+      icon: './assets/night-category-food.svg',
     },
     mercado: {
       copy: 'Súper y tiendas.',
-      icon: './assets/night-category-market.png',
+      icon: './assets/night-category-market.svg',
     },
     farmacia: {
       copy: 'Salud y bienestar.',
-      icon: './assets/night-category-pharmacy.png',
+      icon: './assets/night-category-pharmacy.svg',
     },
     envios: {
       copy: 'Paquetes y documentos.',
-      icon: './assets/night-category-shipping.png',
+      icon: './assets/night-category-shipping.svg',
     },
   };
 
