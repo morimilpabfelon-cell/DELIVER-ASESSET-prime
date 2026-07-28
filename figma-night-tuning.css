@@ -1,0 +1,74 @@
+/* Visual parity pass generated from the 1440, 768 and 390 comparison artifacts. */
+.site { padding-bottom: 24px; }
+.contact { position: relative; }
+
+.category-card svg * { opacity: 0; }
+.category-card[data-category="comida"] svg { background-image: url('./assets/figma-night/category-food-desktop.png'); }
+.category-card[data-category="mercado"] svg { background-image: url('./assets/figma-night/category-market-desktop.png'); }
+.category-card[data-category="farmacia"] svg { background-image: url('./assets/figma-night/category-pharmacy-desktop.png'); }
+.category-card[data-category="envios"] svg { background-image: url('./assets/figma-night/category-shipping-desktop.png'); }
+.category-card svg { background-position: center; background-size: cover; background-repeat: no-repeat; }
+
+@media (min-width: 901px) {
+  .categories { padding-top: 51px; }
+  .process { padding-top: 100px; }
+
+  .process-card,
+  .process-card.pide,
+  .process-card.recibe {
+    background: linear-gradient(180deg, var(--panel), var(--panel-2));
+  }
+
+  .process-card.mira {
+    border-color: var(--yellow);
+    background: var(--yellow);
+    color: var(--ink);
+  }
+
+  .process-card::before {
+    inset: 98px 24px auto;
+    z-index: 0;
+    height: 140px;
+    border-radius: 16px;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .process-card.pide::before { background-image: url('./assets/figma-night/process-pide-desktop.png'); }
+  .process-card.mira::before { background-image: url('./assets/figma-night/process-mira-desktop.png'); }
+  .process-card.recibe::before { background-image: url('./assets/figma-night/process-recibe-desktop.png'); }
+  .process-card.mira h3 { color: var(--ink); }
+  .process-card.mira p { color: #343434; }
+}
+
+@media (max-width: 900px) and (min-width: 601px) {
+  .categories { padding-top: 28px; }
+
+  .category-card[data-category="comida"] svg { background-image: url('./assets/figma-night/category-food-mobile.png'); }
+  .category-card[data-category="mercado"] svg { background-image: url('./assets/figma-night/category-market-mobile.png'); }
+  .category-card[data-category="farmacia"] svg { background-image: url('./assets/figma-night/category-pharmacy-mobile.png'); }
+  .category-card[data-category="envios"] svg { background-image: url('./assets/figma-night/category-shipping-mobile.png'); }
+  .category-card svg { background-size: 24px 24px; background-repeat: no-repeat; }
+}
+
+@media (max-width: 600px) {
+  .category-card[data-category="comida"] svg { background-image: url('./assets/figma-night/category-food-mobile.png'); }
+  .category-card[data-category="mercado"] svg { background-image: url('./assets/figma-night/category-market-mobile.png'); }
+  .category-card[data-category="farmacia"] svg { background-image: url('./assets/figma-night/category-pharmacy-mobile.png'); }
+  .category-card[data-category="envios"] svg { background-image: url('./assets/figma-night/category-shipping-mobile.png'); }
+  .category-card svg { background-size: contain; }
+
+  .hero-trust { position: relative; isolation: isolate; }
+  .hero-trust::before {
+    content: '';
+    position: absolute;
+    inset: -5px -12px;
+    z-index: -1;
+    border-radius: 8px;
+    background: rgba(7, 9, 10, .82);
+  }
+
+  .trust-strip article { gap: 0; }
+  .process { padding-top: 70px; }
+  .process > h2 { font-size: 31px; letter-spacing: -.065em; }
+}
