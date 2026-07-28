@@ -1,4 +1,16 @@
 (() => {
+  const tuning = document.createElement('link');
+  tuning.rel = 'stylesheet';
+  tuning.href = './figma-night-tuning.css';
+  document.documentElement.dataset.tuning = 'loading';
+  tuning.addEventListener('load', () => {
+    document.documentElement.dataset.tuning = 'ready';
+  }, { once: true });
+  tuning.addEventListener('error', () => {
+    document.documentElement.dataset.tuning = 'error';
+  }, { once: true });
+  document.head.append(tuning);
+
   const menu = document.querySelector('[data-menu]');
   const nav = document.querySelector('[data-nav]');
   const dialog = document.querySelector('[data-dialog]');
