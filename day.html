@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es" data-theme="day">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, follow" />
+    <meta name="theme-color" content="#f4f1e8" />
+    <title>DELIVER ASSETS — DAY FINAL</title>
+    <style>
+      html, body { min-height: 100%; margin: 0; background: #f4f1e8; font-family: Inter, system-ui, sans-serif; }
+      body { display: grid; place-items: center; color: #060708; }
+      p { font-weight: 800; letter-spacing: .04em; }
+    </style>
+  </head>
+  <body>
+    <p>CARGANDO DAY FINAL…</p>
+    <script>
+      fetch('./index.html', { cache: 'no-store' })
+        .then((response) => {
+          if (!response.ok) throw new Error(`No se pudo cargar index.html (${response.status})`);
+          return response.text();
+        })
+        .then((source) => {
+          const themed = source
+            .replace('<html lang="es">', '<html lang="es" data-theme="day">')
+            .replace('<title>DELIVER ASSETS — Pide. Mira. Recibe.</title>', '<title>DELIVER ASSETS — DAY FINAL</title>');
+          document.open();
+          document.write(themed);
+          document.close();
+        })
+        .catch((error) => {
+          document.body.innerHTML = '';
+          const message = document.createElement('p');
+          message.textContent = 'No se pudo abrir el render de día.';
+          document.body.append(message);
+          console.error('[deliver-day]', error);
+        });
+    </script>
+    <noscript><p>Activa JavaScript para abrir el render de día.</p></noscript>
+  </body>
+</html>
