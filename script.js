@@ -10,6 +10,8 @@
     './strong-vision.css',
     './strong-vision-hero.css',
     './strong-vision-experience.css',
+    './night-final.css',
+    './night-assets.css',
     './day-final.css',
   ];
   const modules = [
@@ -20,6 +22,8 @@
     './public-pages.js',
     './public-extra.js',
     './dialogs.js',
+    './night-assets.js',
+    './night-theme.js',
     './day-theme.js',
   ];
 

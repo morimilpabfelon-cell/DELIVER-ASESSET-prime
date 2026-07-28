@@ -7,10 +7,11 @@ const failures = [];
 const requiredFiles = [
   'index.html', 'day.html', '404.html', 'robots.txt', 'sitemap.xml', 'site.webmanifest',
   'styles.css', 'lab.css', 'order.css', 'ecosystem.css', 'conversion.css', 'modal.css', 'responsive.css', 'polish.css',
-  'strong-vision.css', 'strong-vision-hero.css', 'strong-vision-experience.css', 'day-final.css',
-  'script.js', 'catalog-data.js', 'site-core.js', 'catalog.js', 'order-demo.js', 'public-pages.js', 'public-extra.js', 'dialogs.js', 'day-theme.js',
+  'strong-vision.css', 'strong-vision-hero.css', 'strong-vision-experience.css', 'night-final.css', 'day-final.css',
+  'script.js', 'catalog-data.js', 'site-core.js', 'catalog.js', 'order-demo.js', 'public-pages.js', 'public-extra.js', 'dialogs.js', 'night-theme.js', 'day-theme.js',
   '.nojekyll', 'assets/hero-official.svg', 'assets/hero-strong-v2.webp', 'assets/hero-night-v2.svg',
   'assets/business-ops-v2.svg', 'assets/rider-ops-v2.svg',
+  'assets/night-category-food.svg', 'assets/night-category-market.svg', 'assets/night-category-pharmacy.svg', 'assets/night-category-shipping.svg',
   'assets/og-deliver-assets.svg', 'assets/favicon.svg', 'assets/icon-order.svg', 'assets/icon-track.svg', 'assets/icon-receive.svg',
 ];
 
@@ -116,10 +117,10 @@ for (const iconClass of ['category-icon', 'tab-icon', 'hub-icon']) {
   if (!readFileSync(htmlPath, 'utf8').includes(`class="${iconClass}"`)) failures.push(`Falta iconografía inline: ${iconClass}`);
 }
 
-const scriptFiles = ['script.js', 'catalog-data.js', 'site-core.js', 'catalog.js', 'order-demo.js', 'public-pages.js', 'public-extra.js', 'dialogs.js', 'day-theme.js'];
+const scriptFiles = ['script.js', 'catalog-data.js', 'site-core.js', 'catalog.js', 'order-demo.js', 'public-pages.js', 'public-extra.js', 'dialogs.js', 'night-theme.js', 'day-theme.js'];
 const scripts = scriptFiles.filter((file) => existsSync(join(root, file))).map((file) => readFileSync(join(root, file), 'utf8')).join('\n');
 if (scripts.includes('eval(') || scripts.includes('innerHTML')) failures.push('Los scripts usan una operación no permitida');
-for (const marker of ['polish.css', 'strong-vision.css', 'strong-vision-hero.css', 'strong-vision-experience.css', 'day-final.css', 'day-theme.js', 'BARRIO BURGER', 'store-mark', 'store-meta', 'coverage', 'security', 'contact', 'orderStates', 'openPublic', 'data-theme']) {
+for (const marker of ['polish.css', 'strong-vision.css', 'strong-vision-hero.css', 'strong-vision-experience.css', 'night-final.css', 'day-final.css', 'night-theme.js', 'day-theme.js', 'BARRIO BURGER', 'store-mark', 'store-meta', 'coverage', 'security', 'contact', 'orderStates', 'openPublic', 'data-theme']) {
   if (!scripts.includes(marker)) failures.push(`Los scripts no contienen: ${marker}`);
 }
 for (const text of ['La simulación', 'demostración visual', 'No operativos', 'data-signup-form']) {
@@ -150,19 +151,52 @@ if (existsSync(experienceStylePath)) {
   }
 }
 
-const dayStylePath = join(root, 'day-final.css');
-if (existsSync(dayStylePath)) {
-  const dayStyle = readFileSync(dayStylePath, 'utf8');
-  for (const marker of ['html[data-theme="day"]', 'hero-official.svg', '.public-hub-grid', '.manifesto', '.product-lab', '.process-grid', '.ecosystem-panel', '@media (max-width: 860px)', 'prefers-reduced-motion']) {
-    if (!dayStyle.includes(marker)) failures.push(`day-final.css no contiene: ${marker}`);
-  }
-  const unscopedSelector = dayStyle.split('\n').find((line) => {
+const assertScopedTheme = (file, scope, markers) => {
+  const path = join(root, file);
+  if (!existsSync(path)) return;
+  const style = readFileSync(path, 'utf8');
+  for (const marker of markers) if (!style.includes(marker)) failures.push(`${file} no contiene: ${marker}`);
+  const unscopedSelector = style.split('\n').find((line) => {
     const trimmed = line.trim();
     if (!trimmed || trimmed.startsWith('/*') || trimmed.startsWith('*') || trimmed.startsWith('@')) return false;
     if (!/\.(?:hero|categories|public-hub|manifesto|product-lab|process|ecosystem|contact-cta|site-footer)\b/.test(trimmed)) return false;
-    return !trimmed.startsWith('html[data-theme="day"]');
+    return !trimmed.startsWith(scope);
   });
-  if (unscopedSelector) failures.push(`day-final.css contiene selector no encapsulado: ${unscopedSelector.trim()}`);
+  if (unscopedSelector) failures.push(`${file} contiene selector no encapsulado: ${unscopedSelector.trim()}`);
+};
+
+assertScopedTheme('night-final.css', 'html[data-theme="night"]', [
+  'Authoritative visual source: Figma frames 2:77, 2:229 and 2:381',
+  'html[data-theme="night"]',
+  '.category-card .category-icon',
+  '.public-hub-grid',
+  '.manifesto',
+  '.product-lab',
+  '.process-grid',
+  '.ecosystem-panel',
+  '@media (max-width: 860px)',
+  '@media (max-width: 580px)',
+  'prefers-reduced-motion',
+]);
+
+assertScopedTheme('day-final.css', 'html[data-theme="day"]', [
+  'html[data-theme="day"]',
+  'hero-official.svg',
+  '.public-hub-grid',
+  '.manifesto',
+  '.product-lab',
+  '.process-grid',
+  '.ecosystem-panel',
+  '@media (max-width: 860px)',
+  'prefers-reduced-motion',
+]);
+
+const nightThemePath = join(root, 'night-theme.js');
+if (existsSync(nightThemePath)) {
+  const nightTheme = readFileSync(nightThemePath, 'utf8');
+  for (const marker of ["dataset.theme === 'day'", "dataset.theme = 'night'", '02 / QUÉ NECESITAS HOY', '03 / MANIFIESTO', '08 / CONTACTO', 'night-category-shipping.svg']) {
+    if (!nightTheme.includes(marker)) failures.push(`night-theme.js no contiene: ${marker}`);
+  }
 }
 
 const heroVectorPath = join(root, 'assets/hero-night-v2.svg');
@@ -193,4 +227,4 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`[verify:error] ${failure}`));
   process.exit(1);
 }
-console.log('[verify] Night, DAY FINAL, experiencia, SEO y Pages validados correctamente');
+console.log('[verify] Figma Night, DAY FINAL, experiencia, SEO y Pages validados correctamente');

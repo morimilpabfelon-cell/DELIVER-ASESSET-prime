@@ -1,0 +1,34 @@
+/* Original Figma photography reconstructed locally by night-assets.js. */
+html[data-theme="night"] .hero-visual {
+  background:
+    linear-gradient(103deg, rgba(5, 8, 9, .35), rgba(20, 24, 27, .35) 55%, rgba(3, 3, 3, .35)),
+    var(--night-hero-photo, url('./assets/hero-night-v2.svg')) center / cover no-repeat;
+}
+
+html[data-theme="night"] .manifesto {
+  background:
+    linear-gradient(180deg, rgba(6, 7, 8, .82), rgba(6, 7, 8, .2)),
+    var(--night-hero-photo, url('./assets/hero-night-v2.svg')) center 36% / cover no-repeat;
+}
+
+@media (max-width: 860px) {
+  html[data-theme="night"] .hero {
+    background:
+      linear-gradient(90deg, rgba(7, 9, 10, .92), rgba(7, 9, 10, .2) 70%),
+      var(--night-hero-photo, url('./assets/hero-night-v2.svg')) center / cover no-repeat;
+  }
+}
+
+@media (max-width: 580px) {
+  html[data-theme="night"] .hero {
+    background:
+      linear-gradient(180deg, rgba(7, 9, 10, .78) 0%, rgba(7, 9, 10, .34) 48%, rgba(7, 9, 10, .92) 100%),
+      var(--night-hero-photo, url('./assets/hero-night-v2.svg')) center / cover no-repeat;
+  }
+
+  html[data-theme="night"] .manifesto {
+    background:
+      linear-gradient(180deg, rgba(6, 7, 8, .82), rgba(6, 7, 8, .42)),
+      var(--night-hero-photo, url('./assets/hero-night-v2.svg')) center / cover no-repeat;
+  }
+}
