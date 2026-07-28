@@ -30,6 +30,15 @@ jobs:
           fetch 'https://www.figma.com/api/mcp/asset/45cc3cd5-6603-424a-a62f-3009200eb39d' hero-tablet.png
           fetch 'https://www.figma.com/api/mcp/asset/dfbe1864-46b6-4ea7-ae04-2e364dde95d4' hero-mobile.png
 
+          fetch 'https://www.figma.com/api/mcp/asset/ab313c63-8488-48c2-be3e-319a260fe008' category-food-desktop.png
+          fetch 'https://www.figma.com/api/mcp/asset/7b3245bb-356c-4c61-a7ce-48269aeaadc3' category-market-desktop.png
+          fetch 'https://www.figma.com/api/mcp/asset/48f90157-6963-4380-8f31-ecbeac9d35d4' category-pharmacy-desktop.png
+          fetch 'https://www.figma.com/api/mcp/asset/8133a38c-963c-4c8d-87ba-19384128e4cc' category-shipping-desktop.png
+          fetch 'https://www.figma.com/api/mcp/asset/8215fd2a-0327-46d9-8dbb-9512157220f9' category-food-mobile.png
+          fetch 'https://www.figma.com/api/mcp/asset/82577f80-e6bc-4e7f-91d4-2e347ce35117' category-market-mobile.png
+          fetch 'https://www.figma.com/api/mcp/asset/e1f23442-776e-4f53-bc41-79b7ff63739c' category-pharmacy-mobile.png
+          fetch 'https://www.figma.com/api/mcp/asset/bfcbe9bc-c00c-4317-9d6b-dfe503f84a05' category-shipping-mobile.png
+
           fetch 'https://www.figma.com/api/mcp/asset/00d9238a-14f6-455a-a405-e4226eead913' manifesto-desktop.png
           fetch 'https://www.figma.com/api/mcp/asset/4096668a-c9bc-42f7-b18f-3178a6a9ac17' manifesto-mobile.png
 
