@@ -1,0 +1,203 @@
+/* Final visual polish: iconography, catalog hierarchy, tracking device and responsive details. */
+.category-card {
+  position: relative;
+  overflow: hidden;
+}
+.category-card::after {
+  content: "";
+  position: absolute;
+  right: -38px;
+  bottom: -38px;
+  width: 96px;
+  height: 96px;
+  border: 18px solid rgba(17, 17, 17, .045);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.category-card.is-active::after { border-color: rgba(17, 17, 17, .08); }
+.category-icon {
+  width: 68px;
+  height: 68px;
+  margin: 28px 0 20px;
+  display: block;
+  border-radius: 15px;
+}
+
+.category-tabs button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.tab-icon {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+}
+
+.store-card {
+  position: relative;
+  min-height: 82px;
+  padding: 11px 12px;
+  grid-template-columns: 52px 1fr auto;
+  gap: 12px;
+  overflow: hidden;
+  transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+.store-card:hover {
+  transform: translateX(3px);
+  border-color: var(--ink);
+}
+.store-card::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 5px;
+  background: transparent;
+}
+.store-card.is-selected::after { background: var(--accent); }
+.store-mark {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 1px;
+  background: var(--ink);
+  color: var(--accent);
+}
+.store-mark b {
+  grid-column: auto;
+  font-family: var(--display);
+  font-size: 1rem;
+  line-height: 1;
+  text-align: center;
+}
+.store-mark small {
+  color: rgba(255, 255, 255, .6);
+  font-size: .42rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+.store-card > span:not(.store-mark):not(.store-meta) {
+  display: grid;
+  gap: 2px;
+}
+.store-meta {
+  display: grid;
+  justify-items: end;
+  gap: 3px;
+}
+.store-meta b {
+  grid-column: auto;
+  font-size: .68rem;
+  text-align: right;
+}
+.store-meta small {
+  font-size: .59rem;
+  font-weight: 800;
+}
+
+.demo-phone {
+  position: relative;
+  border-width: 8px;
+  border-radius: 31px;
+  box-shadow: 0 20px 44px rgba(0, 0, 0, .34), inset 0 0 0 1px rgba(255, 255, 255, .08);
+}
+.demo-phone::before {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 50%;
+  width: 82px;
+  height: 17px;
+  border-radius: 0 0 12px 12px;
+  background: #050505;
+  transform: translateX(-50%);
+}
+.phone-top {
+  min-height: 52px;
+  padding-top: 8px;
+}
+.demo-map {
+  position: relative;
+  min-height: 166px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 72%, rgba(255, 190, 24, .28) 0 3px, transparent 4px),
+    radial-gradient(circle at 80% 22%, rgba(17, 17, 17, .12) 0 2px, transparent 3px),
+    linear-gradient(27deg, transparent 46%, rgba(17, 17, 17, .09) 47% 49%, transparent 50%),
+    linear-gradient(153deg, transparent 44%, rgba(17, 17, 17, .075) 45% 47%, transparent 48%),
+    linear-gradient(rgba(17, 17, 17, .07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(17, 17, 17, .07) 1px, transparent 1px),
+    #eae5db;
+  background-size: auto, auto, 130px 90px, 150px 95px, 31px 31px, 31px 31px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), inset 0 -1px 0 rgba(17, 17, 17, .08);
+}
+.point,
+.rider-dot {
+  position: relative;
+  z-index: 2;
+  width: 31px;
+  height: 31px;
+  box-shadow: 0 5px 10px rgba(17, 17, 17, .13);
+}
+.rider-dot {
+  box-shadow: 0 0 0 5px rgba(255, 190, 24, .24), 0 7px 14px rgba(17, 17, 17, .2);
+}
+
+.public-hub-grid button {
+  position: relative;
+  overflow: hidden;
+}
+.public-hub-grid button::after {
+  content: "";
+  position: absolute;
+  right: -42px;
+  bottom: -42px;
+  width: 110px;
+  height: 110px;
+  border: 20px solid rgba(17, 17, 17, .045);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.hub-icon {
+  width: 64px;
+  height: 64px;
+  margin: 30px 0 18px;
+  display: block;
+}
+
+@media (max-width: 580px) {
+  .category-icon {
+    grid-column: 1;
+    grid-row: 1 / 4;
+    width: 48px;
+    height: 48px;
+    margin: 0;
+    border-radius: 11px;
+  }
+  .store-card {
+    grid-template-columns: 50px 1fr auto;
+  }
+  .store-mark {
+    width: 50px;
+    height: 50px;
+  }
+  .store-mark b,
+  .store-meta b {
+    grid-column: auto;
+  }
+  .store-meta {
+    grid-column: 3;
+    justify-items: end;
+  }
+  .hub-icon {
+    grid-column: 1;
+    grid-row: 1 / 4;
+    width: 48px;
+    height: 48px;
+    margin: 0;
+  }
+}

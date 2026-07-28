@@ -27,7 +27,9 @@ jobs:
         run: node scripts/verify-site.mjs
 
       - name: Check JavaScript syntax
+        shell: bash
         run: |
+          set -euo pipefail
           for file in *.js; do
             node --check "$file"
           done
@@ -38,9 +40,13 @@ jobs:
           name: deliver-prime-static-${{ github.sha }}
           path: |
             index.html
+            404.html
             *.css
             *.js
             assets
+            robots.txt
+            sitemap.xml
+            site.webmanifest
             .nojekyll
           if-no-files-found: error
           retention-days: 7

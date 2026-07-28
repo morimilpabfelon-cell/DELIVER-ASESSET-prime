@@ -1,0 +1,18 @@
+{
+  "name": "DELIVER ASSETS",
+  "short_name": "DELIVER",
+  "description": "Delivery y comercio local en movimiento.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f3efe7",
+  "theme_color": "#111111",
+  "icons": [
+    {
+      "src": "./assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

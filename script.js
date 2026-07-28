@@ -6,6 +6,7 @@
     './conversion.css',
     './modal.css',
     './responsive.css',
+    './polish.css',
   ];
   const modules = [
     './catalog-data.js',
