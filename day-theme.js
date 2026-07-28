@@ -1,4 +1,5 @@
 (() => {
+  // day.html supplies the data-theme="day" gate; night remains the default.
   if (document.documentElement.dataset.theme !== 'day') return;
 
   document.body.classList.add('theme-day');
