@@ -15,9 +15,10 @@
   <body>
     <p>CARGANDO DAY FINAL…</p>
     <script>
-      fetch('./index.html', { cache: 'no-store' })
+      const daySource = 'https://raw.githubusercontent.com/morimilpabfelon-cell/DELIVER-ASESSET-prime/53791ae703a656f2f510e122cc387120324c3f40/index.html';
+      fetch(daySource, { cache: 'force-cache' })
         .then((response) => {
-          if (!response.ok) throw new Error(`No se pudo cargar index.html (${response.status})`);
+          if (!response.ok) throw new Error(`No se pudo cargar el master de día (${response.status})`);
           return response.text();
         })
         .then((source) => {
@@ -29,7 +30,7 @@
           document.close();
         })
         .catch((error) => {
-          document.body.innerHTML = '';
+          document.body.replaceChildren();
           const message = document.createElement('p');
           message.textContent = 'No se pudo abrir el render de día.';
           document.body.append(message);

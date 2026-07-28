@@ -1,0 +1,128 @@
+name: Figma night visual QA
+
+on:
+  push:
+    branches: [feat/figma-night-rebuild]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  visual-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify static implementation
+        run: node scripts/verify-site.mjs
+
+      - name: Install browser
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0 >/dev/null 2>&1
+          npx playwright install --with-deps chromium
+
+      - name: Start static server
+        run: |
+          python3 -m http.server 8080 --bind 127.0.0.1 > /tmp/deliver-server.log 2>&1 &
+          echo $! > /tmp/deliver-server.pid
+          for attempt in {1..20}; do
+            curl --fail --silent http://127.0.0.1:8080/ >/dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/deliver-server.log
+          exit 1
+
+      - name: Capture desktop tablet and mobile
+        run: |
+          mkdir -p visual/actual visual/runtime
+          cat > visual/runtime/capture.mjs <<'EOF'
+          import { writeFile } from 'node:fs/promises';
+          import { chromium } from 'playwright';
+
+          const browser = await chromium.launch({ headless: true });
+          const views = [
+            ['desktop', 1440, 900],
+            ['tablet', 768, 900],
+            ['mobile', 390, 844],
+          ];
+          const selectors = ['.header', '.hero', '.categories', '.trust-strip', '.manifesto', '.experience', '.process', '.ecosystem', '.contact', '.footer'];
+
+          try {
+            for (const [name, width, height] of views) {
+              const page = await browser.newPage({ viewport: { width, height }, deviceScaleFactor: 1 });
+              const consoleErrors = [];
+              page.on('console', (message) => {
+                if (message.type() === 'error') consoleErrors.push(message.text());
+              });
+              page.on('pageerror', (error) => consoleErrors.push(error.message));
+
+              await page.goto('http://127.0.0.1:8080/', { waitUntil: 'load', timeout: 30000 });
+              await page.waitForFunction(() => document.documentElement.dataset.tuning === 'ready', null, { timeout: 10000 });
+              await page.evaluate(async () => {
+                await Promise.race([
+                  document.fonts.ready,
+                  new Promise((resolve) => setTimeout(resolve, 5000)),
+                ]);
+              });
+
+              const metrics = await page.evaluate((targets) => {
+                const rects = Object.fromEntries(targets.map((selector) => {
+                  const node = document.querySelector(selector);
+                  if (!node) return [selector, null];
+                  const rect = node.getBoundingClientRect();
+                  return [selector, { x: rect.x, y: rect.y + scrollY, width: rect.width, height: rect.height }];
+                }));
+                return {
+                  viewport: { width: innerWidth, height: innerHeight },
+                  document: { width: document.documentElement.scrollWidth, height: document.documentElement.scrollHeight },
+                  font: {
+                    loaded: document.fonts.check('900 16px Inter'),
+                    family: getComputedStyle(document.querySelector('.hero h1')).fontFamily,
+                  },
+                  tuning: document.documentElement.dataset.tuning,
+                  rects,
+                };
+              }, selectors);
+
+              await page.screenshot({ path: `visual/actual/${name}.png`, fullPage: true });
+              await writeFile(`visual/actual/${name}-metrics.json`, JSON.stringify(metrics, null, 2));
+              console.log(`${name}: ${metrics.document.width}x${metrics.document.height}; Inter=${metrics.font.loaded}; tuning=${metrics.tuning}`);
+              if (consoleErrors.length) console.warn(`${name} browser errors: ${consoleErrors.join(' | ')}`);
+              await page.close();
+            }
+          } finally {
+            await browser.close();
+          }
+          EOF
+          node visual/runtime/capture.mjs
+
+      - name: Download current Figma references
+        shell: bash
+        run: |
+          mkdir -p visual/reference
+          curl -L --fail --retry 3 'https://www.figma.com/api/mcp/asset/eb9c5f7c-405a-483b-842e-be8824ca6d0b' -o visual/reference/desktop.png
+          curl -L --fail --retry 3 'https://www.figma.com/api/mcp/asset/681e338f-a2db-4c63-bbcb-7f4984d3c43d' -o visual/reference/tablet.png
+          curl -L --fail --retry 3 'https://www.figma.com/api/mcp/asset/bbf928c2-85db-43d9-a9b9-b401120359a1' -o visual/reference/mobile.png
+
+      - name: Generate visual contact sheets
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y imagemagick >/dev/null
+          mkdir -p visual/compare
+          for view in desktop tablet mobile; do
+            ref_size=$(identify -format '%wx%h' "visual/reference/$view.png")
+            convert "visual/actual/$view.png" -resize "$ref_size!" "visual/compare/${view}-actual-normalized.png"
+            convert "visual/reference/$view.png" "visual/compare/${view}-actual-normalized.png" +append "visual/compare/${view}-side-by-side.png"
+            compare -metric RMSE "visual/reference/$view.png" "visual/compare/${view}-actual-normalized.png" "visual/compare/${view}-diff.png" 2> "visual/compare/${view}-rmse.txt" || true
+            echo "$view RMSE: $(cat visual/compare/${view}-rmse.txt)"
+          done
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: figma-night-visual-qa
+          path: visual
+          retention-days: 14
