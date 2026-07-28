@@ -7,9 +7,10 @@ const failures = [];
 const requiredFiles = [
   'index.html', '404.html', 'robots.txt', 'sitemap.xml', 'site.webmanifest',
   'styles.css', 'lab.css', 'order.css', 'ecosystem.css', 'conversion.css', 'modal.css', 'responsive.css', 'polish.css',
+  'strong-vision.css', 'strong-vision-hero.css',
   'script.js', 'catalog-data.js', 'site-core.js', 'catalog.js', 'order-demo.js', 'public-pages.js', 'public-extra.js', 'dialogs.js',
-  '.nojekyll', 'assets/hero-official.svg', 'assets/og-deliver-assets.svg', 'assets/favicon.svg',
-  'assets/icon-order.svg', 'assets/icon-track.svg', 'assets/icon-receive.svg',
+  '.nojekyll', 'assets/hero-official.svg', 'assets/hero-strong-v2.webp', 'assets/hero-night-v2.svg',
+  'assets/og-deliver-assets.svg', 'assets/favicon.svg', 'assets/icon-order.svg', 'assets/icon-track.svg', 'assets/icon-receive.svg',
 ];
 
 for (const file of requiredFiles) {
@@ -47,7 +48,7 @@ if (existsSync(htmlPath)) {
   ];
   for (const text of forbidden) if (html.includes(text)) failures.push(`index.html conserva texto o activo retirado: ${text}`);
 
-  const localRefs = [...html.matchAll(/(?:href|src)="(\.\/[^"]+)"/g)].map((match) => match[1]);
+  const localRefs = [...html.matchAll(/(?:href|src)="(\.\/[^\"]+)"/g)].map((match) => match[1]);
   for (const ref of localRefs) {
     const fileRef = ref.split('#')[0].split('?')[0];
     const target = normalize(join(dirname(htmlPath), fileRef));
@@ -108,11 +109,35 @@ for (const iconClass of ['category-icon', 'tab-icon', 'hub-icon']) {
 const scriptFiles = ['script.js', 'catalog-data.js', 'site-core.js', 'catalog.js', 'order-demo.js', 'public-pages.js', 'public-extra.js', 'dialogs.js'];
 const scripts = scriptFiles.filter((file) => existsSync(join(root, file))).map((file) => readFileSync(join(root, file), 'utf8')).join('\n');
 if (scripts.includes('eval(') || scripts.includes('innerHTML')) failures.push('Los scripts usan una operación no permitida');
-for (const marker of ['polish.css', 'BARRIO BURGER', 'store-mark', 'store-meta', 'coverage', 'security', 'contact', 'orderStates', 'openPublic']) {
+for (const marker of ['polish.css', 'strong-vision.css', 'strong-vision-hero.css', 'BARRIO BURGER', 'store-mark', 'store-meta', 'coverage', 'security', 'contact', 'orderStates', 'openPublic']) {
   if (!scripts.includes(marker)) failures.push(`Los scripts no contienen: ${marker}`);
 }
 for (const text of ['La simulación', 'demostración visual', 'No operativos', 'data-signup-form']) {
   if (scripts.includes(text)) failures.push(`Los scripts conservan texto o lógica retirada: ${text}`);
+}
+
+const visionPath = join(root, 'strong-vision.css');
+if (existsSync(visionPath)) {
+  const vision = readFileSync(visionPath, 'utf8');
+  for (const marker of ['hero-strong-v2.webp', '¿QUÉ NECESITAS HOY?', '.public-hub-grid', '@media (max-width: 580px)']) {
+    if (!vision.includes(marker)) failures.push(`strong-vision.css no contiene: ${marker}`);
+  }
+}
+
+const heroStylePath = join(root, 'strong-vision-hero.css');
+if (existsSync(heroStylePath)) {
+  const heroStyle = readFileSync(heroStylePath, 'utf8');
+  for (const marker of ['hero-night-v2.svg', '.hero-visual', '@media (max-width: 580px)']) {
+    if (!heroStyle.includes(marker)) failures.push(`strong-vision-hero.css no contiene: ${marker}`);
+  }
+}
+
+const heroVectorPath = join(root, 'assets/hero-night-v2.svg');
+if (existsSync(heroVectorPath)) {
+  const heroVector = readFileSync(heroVectorPath, 'utf8');
+  for (const marker of ['width="1200"', 'height="900"', 'DELIVER ASSETS', 'EN CAMINO']) {
+    if (!heroVector.includes(marker)) failures.push(`hero-night-v2.svg no contiene: ${marker}`);
+  }
 }
 
 if (existsSync(join(root, 'organization.js'))) failures.push('organization.js no debe existir');
@@ -124,4 +149,4 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`[verify:error] ${failure}`));
   process.exit(1);
 }
-console.log('[verify] Pulido visual, iconografía, SEO y rutas de Pages validados correctamente');
+console.log('[verify] Pulido, SEO, Pages y Strong Vision v2 validados correctamente');

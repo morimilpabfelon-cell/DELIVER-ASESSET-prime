@@ -7,6 +7,8 @@
     './modal.css',
     './responsive.css',
     './polish.css',
+    './strong-vision.css',
+    './strong-vision-hero.css',
   ];
   const modules = [
     './catalog-data.js',
