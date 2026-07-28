@@ -23,11 +23,11 @@ const updateOrder = () => {
   if (resetOrder) resetOrder.hidden = state.orderStep !== 5;
   if (consoleHint) {
     consoleHint.textContent = state.orderStep === 0
-      ? 'Agrega un producto para iniciar la simulación.'
+      ? 'Agrega un producto para iniciar el recorrido.'
       : state.orderStep === 1
         ? 'El pedido está listo para confirmar.'
         : state.orderStep === 5
-          ? 'La simulación terminó correctamente.'
+          ? 'Pedido entregado. Recorrido completado.'
           : 'El estado cambia automáticamente.';
   }
 };
@@ -54,19 +54,6 @@ resetOrder?.addEventListener('click', () => {
   state.quantity = 0;
   state.orderStep = 0;
   updateOrder();
-});
-
-const signupForm = qs('[data-signup-form]');
-signupForm?.addEventListener('submit', (event) => {
-  event.preventDefault();
-  qs('[data-form-fields]', signupForm).hidden = true;
-  qs('[data-form-success]', signupForm).hidden = false;
-});
-qs('[data-form-reset]')?.addEventListener('click', () => {
-  if (!signupForm) return;
-  signupForm.reset();
-  qs('[data-form-fields]', signupForm).hidden = false;
-  qs('[data-form-success]', signupForm).hidden = true;
 });
 
 renderStores();
