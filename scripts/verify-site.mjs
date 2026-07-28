@@ -8,11 +8,9 @@ const required = [
   'index.html', 'day.html', 'figma-night.css', 'figma-night-tuning.css', 'figma-night.js',
   '404.html', 'robots.txt', 'sitemap.xml', 'site.webmanifest', '.nojekyll',
   'assets/favicon.svg', 'assets/og-deliver-assets.svg',
+  'assets/night-category-food.svg', 'assets/night-category-market.svg',
+  'assets/night-category-pharmacy.svg', 'assets/night-category-shipping.svg',
   'assets/figma-night/hero-desktop.png', 'assets/figma-night/hero-tablet.png', 'assets/figma-night/hero-mobile.png',
-  'assets/figma-night/category-food-desktop.png', 'assets/figma-night/category-market-desktop.png',
-  'assets/figma-night/category-pharmacy-desktop.png', 'assets/figma-night/category-shipping-desktop.png',
-  'assets/figma-night/category-food-mobile.png', 'assets/figma-night/category-market-mobile.png',
-  'assets/figma-night/category-pharmacy-mobile.png', 'assets/figma-night/category-shipping-mobile.png',
   'assets/figma-night/manifesto-desktop.png', 'assets/figma-night/manifesto-mobile.png',
   'assets/figma-night/map-desktop.png', 'assets/figma-night/map-tablet.png', 'assets/figma-night/map-mobile.png',
   'assets/figma-night/process-pide-desktop.png', 'assets/figma-night/process-mira-desktop.png', 'assets/figma-night/process-recibe-desktop.png',
@@ -69,7 +67,7 @@ for (const marker of [
 ]) if (!css.includes(marker)) failures.push(`figma-night.css no contiene ${marker}`);
 
 for (const marker of [
-  'Visual parity pass', 'category-food-desktop.png', 'category-food-mobile.png',
+  'Visual parity pass', 'night-category-food.svg',
   '@media (min-width: 901px)', '.process-card.pide::before', '.site { padding-bottom: 24px; }',
 ]) if (!tuning.includes(marker)) failures.push(`figma-night-tuning.css no contiene ${marker}`);
 
