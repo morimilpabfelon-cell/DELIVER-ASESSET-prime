@@ -15,10 +15,19 @@ const renderStores = () => {
   stores[state.category].forEach((store, index) => {
     const button = element('button', `store-card${index === state.storeIndex ? ' is-selected' : ''}`);
     button.type = 'button';
-    const mark = element('i', '', store.symbol);
+    const categoryLabel = {
+      comida: 'COMIDA',
+      mercado: 'MERCADO',
+      farmacia: 'FARMACIA',
+      envios: 'ENVÍOS',
+    }[state.category];
+    const mark = element('span', `store-mark store-mark-${state.category}`);
+    mark.setAttribute('aria-hidden', 'true');
+    mark.append(element('b', '', store.symbol), element('small', '', categoryLabel));
     const info = element('span');
     info.append(element('strong', '', store.name), element('small', '', store.descriptor));
-    const meta = element('b', '', `★ ${store.rating} · ${store.eta}`);
+    const meta = element('span', 'store-meta');
+    meta.append(element('b', '', `★ ${store.rating}`), element('small', '', store.eta));
     button.append(mark, info, meta);
     button.addEventListener('click', () => {
       state.storeIndex = index;

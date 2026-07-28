@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://morimilpabfelon-cell.github.io/DELIVER-ASESSET-prime/sitemap.xml
