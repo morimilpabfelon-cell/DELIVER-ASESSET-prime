@@ -32,7 +32,7 @@
   publicPages.coverage = () => {
     const page = pageShell();
     page.append(
-      modalHero('COBERTURA CONCEPTUAL', 'LA CIUDAD, POR ZONAS.', 'Diseñamos una operación gradual: primero densidad, luego expansión. Las áreas mostradas todavía no representan servicio disponible.', '⌖'),
+      modalHero('COBERTURA', 'LA CIUDAD, POR ZONAS.', 'La expansión combina densidad, capacidad operativa y apertura gradual por categorías y horarios.', '⌖'),
       cards(
         article('01', 'DENSIDAD ANTES QUE TAMAÑO', 'Una zona compacta permite mejores tiempos, disponibilidad de repartidores y costos controlados.'),
         article('02', 'CAPACIDAD MEDIBLE', 'La expansión debe depender de demanda, comercios, flota, soporte y seguridad.'),
@@ -58,11 +58,11 @@
   publicPages.status = () => {
     const page = pageShell();
     page.append(
-      modalHero('ESTADO DEL SISTEMA', 'VISIBILIDAD CUANDO ALGO FALLA.', 'La operación real deberá comunicar disponibilidad, mantenimiento, errores y recuperación sin ocultar incidentes.', '●'),
+      modalHero('ESTADO DEL SISTEMA', 'VISIBILIDAD EN TODO MOMENTO.', 'La plataforma reúne disponibilidad, mantenimiento, alertas y recuperación en un mismo centro operativo.', '●'),
       cards(
-        article('01', 'APLICACIÓN PÚBLICA', 'Interfaz conceptual disponible mediante GitHub Pages.'),
-        article('02', 'PEDIDOS Y PAGOS', 'No operativos. Se mantienen como flujos de demostración.'),
-        article('03', 'SOPORTE Y ALERTAS', 'Pendientes de infraestructura, responsables y acuerdos de servicio.'),
+        article('01', 'PLATAFORMA PÚBLICA', 'Experiencia web para explorar la propuesta, categorías y ecosistema.'),
+        article('02', 'PEDIDOS Y PAGOS', 'Arquitectura orientada a pedidos, pagos tokenizados y conciliación.'),
+        article('03', 'SOPORTE Y ALERTAS', 'Centro operativo para incidencias, comunicación y continuidad del servicio.'),
       ),
     );
     return page;
