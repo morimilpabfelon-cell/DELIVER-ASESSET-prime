@@ -1,0 +1,57 @@
+name: Rebuild Figma DAY asset
+
+on:
+  push:
+    branches:
+      - assets/figma-day-render
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: assets/figma-day-render
+          fetch-depth: 0
+
+      - name: Validate transfer fragments
+        shell: bash
+        run: |
+          set -euo pipefail
+          wc -c assets/figma-day-import/hero-part-*.txt
+          sha256sum assets/figma-day-import/hero-part-*.txt
+          cat > /tmp/day-expected.sha256 <<'EOF'
+          50bc70c849a4a91296b8bfd510365394e0329e51cd7c4f36a3f7d4f67e05db0e  assets/figma-day-import/hero-part-01.txt
+          04034e6493e7445ecc5c51fb8b95c9f24069b4d05c4c844ad02578a61c62908a  assets/figma-day-import/hero-part-02.txt
+          7693931bf9c76b4b693052daeab8feb0848b832ecc3c6f661eb5862ccab3f8d5  assets/figma-day-import/hero-part-03.txt
+          f1e6c89c4a5385beb0a6fb8b39057d35981a6bef53dbedd790190c30e2387569  assets/figma-day-import/hero-part-04.txt
+          c850d98a8b5c8e44a6da5ced490c8562a9e1bb8e61d850b590f46354fd188cdc  assets/figma-day-import/hero-part-05.txt
+          EOF
+          sha256sum --check /tmp/day-expected.sha256
+
+      - name: Reconstruct JPEG
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat assets/figma-day-import/hero-part-{01..05}.txt | tr -d '\n\r ' | base64 --decode > assets/figma-day-import/day-hero-render.jpg
+          test "$(stat -c%s assets/figma-day-import/day-hero-render.jpg)" -eq 29111
+          file assets/figma-day-import/day-hero-render.jpg | grep -q 'JPEG image data'
+
+      - name: Commit reconstructed asset
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/figma-day-import/day-hero-render.jpg
+          git diff --cached --quiet && exit 0
+          git commit -m 'assets: reconstruct Figma DAY hero JPEG'
+          git push origin HEAD:assets/figma-day-render
