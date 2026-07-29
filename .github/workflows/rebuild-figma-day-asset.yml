@@ -22,6 +22,21 @@ jobs:
           ref: assets/figma-day-render
           fetch-depth: 0
 
+      - name: Validate transfer fragments
+        shell: bash
+        run: |
+          set -euo pipefail
+          wc -c assets/figma-day-import/hero-part-*.txt
+          sha256sum assets/figma-day-import/hero-part-*.txt
+          cat > /tmp/day-expected.sha256 <<'EOF'
+          50bc70c849a4a91296b8bfd510365394e0329e51cd7c4f36a3f7d4f67e05db0e  assets/figma-day-import/hero-part-01.txt
+          04034e6493e7445ecc5c51fb8b95c9f24069b4d05c4c844ad02578a61c62908a  assets/figma-day-import/hero-part-02.txt
+          7693931bf9c76b4b693052daeab8feb0848b832ecc3c6f661eb5862ccab3f8d5  assets/figma-day-import/hero-part-03.txt
+          f1e6c89c4a5385beb0a6fb8b39057d35981a6bef53dbedd790190c30e2387569  assets/figma-day-import/hero-part-04.txt
+          c850d98a8b5c8e44a6da5ced490c8562a9e1bb8e61d850b590f46354fd188cdc  assets/figma-day-import/hero-part-05.txt
+          EOF
+          sha256sum --check /tmp/day-expected.sha256
+
       - name: Reconstruct JPEG
         shell: bash
         run: |
