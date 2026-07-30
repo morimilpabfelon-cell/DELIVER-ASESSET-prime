@@ -88,6 +88,13 @@ jobs:
             '.site-footer',
           ];
           const summaries = [];
+          const failures = [];
+
+          const identifyNode = (node) => {
+            if (node.id) return `${node.tagName.toLowerCase()}#${node.id}`;
+            const classes = [...node.classList].slice(0, 3).join('.');
+            return `${node.tagName.toLowerCase()}${classes ? `.${classes}` : ''}`;
+          };
 
           try {
             for (const [name, width, height] of views) {
@@ -114,7 +121,12 @@ jobs:
                 ]);
               });
 
-              const metrics = await page.evaluate((targets) => {
+              const metrics = await page.evaluate(({ targets }) => {
+                const nodeName = (node) => {
+                  if (node.id) return `${node.tagName.toLowerCase()}#${node.id}`;
+                  const classes = [...node.classList].slice(0, 3).join('.');
+                  return `${node.tagName.toLowerCase()}${classes ? `.${classes}` : ''}`;
+                };
                 const rects = Object.fromEntries(targets.map((selector) => {
                   const node = document.querySelector(selector);
                   if (!node) return [selector, null];
@@ -127,6 +139,21 @@ jobs:
                   }];
                 }));
                 const documentWidth = document.documentElement.scrollWidth;
+                const overflowingElements = [...document.querySelectorAll('body *')]
+                  .map((node) => {
+                    const rect = node.getBoundingClientRect();
+                    return {
+                      node: nodeName(node),
+                      left: Math.round(rect.left),
+                      right: Math.round(rect.right),
+                      width: Math.round(rect.width),
+                      scrollWidth: node.scrollWidth,
+                      clientWidth: node.clientWidth,
+                    };
+                  })
+                  .filter((item) => item.right > innerWidth + 1 || item.left < -1 || item.scrollWidth > item.clientWidth + 1)
+                  .sort((a, b) => Math.max(b.right - innerWidth, b.scrollWidth - b.clientWidth) - Math.max(a.right - innerWidth, a.scrollWidth - a.clientWidth))
+                  .slice(0, 15);
                 return {
                   title: document.title,
                   theme: document.documentElement.dataset.theme,
@@ -138,9 +165,10 @@ jobs:
                   },
                   displayFont: getComputedStyle(document.querySelector('.hero h1')).fontFamily,
                   missingSelectors: targets.filter((selector) => !document.querySelector(selector)),
+                  overflowingElements,
                   rects,
                 };
-              }, selectors);
+              }, { targets: selectors });
 
               if (metrics.theme !== 'editorial-production') {
                 browserErrors.push(`Unexpected theme: ${metrics.theme}`);
@@ -149,7 +177,10 @@ jobs:
                 browserErrors.push(`Missing selectors: ${metrics.missingSelectors.join(', ')}`);
               }
               if (metrics.document.horizontalOverflow > 1) {
-                browserErrors.push(`Horizontal overflow: ${metrics.document.horizontalOverflow}px`);
+                const offenders = metrics.overflowingElements
+                  .map((item) => `${item.node}[${item.left},${item.right}; width=${item.width}; scroll=${item.scrollWidth}/${item.clientWidth}]`)
+                  .join(' | ');
+                browserErrors.push(`Horizontal overflow: ${metrics.document.horizontalOverflow}px. Offenders: ${offenders}`);
               }
 
               await page.screenshot({ path: `visual/actual/${name}.png`, fullPage: true });
@@ -157,22 +188,25 @@ jobs:
               summaries.push({ name, ...metrics, browserErrors });
 
               console.log(`${name}: ${metrics.document.width}x${metrics.document.height}; overflow=${metrics.document.horizontalOverflow}px; theme=${metrics.theme}`);
-              if (browserErrors.length) {
-                throw new Error(`${name} visual QA failed: ${browserErrors.join(' | ')}`);
-              }
-
+              if (browserErrors.length) failures.push(`${name}: ${browserErrors.join(' | ')}`);
               await page.close();
             }
           } finally {
             await writeFile('visual/actual/summary.json', JSON.stringify(summaries, null, 2));
             await browser.close();
           }
+
+          if (failures.length) {
+            throw new Error(`Visual QA failed:\n${failures.join('\n')}`);
+          }
           EOF
           node visual/runtime/capture.mjs
 
       - name: Upload visual review artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: public-homepage-visual-qa
           path: visual/actual
+          if-no-files-found: error
           retention-days: 14
