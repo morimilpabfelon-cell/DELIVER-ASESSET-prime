@@ -1,172 +1,237 @@
 <!doctype html>
-<html lang="es" data-render="figma-night">
+<html lang="es" data-theme="editorial-production">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="DELIVER ASSETS conecta personas, comercios y repartidores en una experiencia urbana de pedidos, seguimiento y entrega." />
-    <meta name="theme-color" content="#060708" />
+    <meta name="description" content="DELIVER ASSETS conecta pedidos, negocios, repartidores y operaciones de última milla en una plataforma urbana trazable." />
+    <meta name="theme-color" content="#f4e9c6" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href="https://morimilpabfelon-cell.github.io/DELIVER-ASESSET-prime/" />
     <meta property="og:site_name" content="DELIVER ASSETS" />
-    <meta property="og:title" content="DELIVER ASSETS — Una plataforma en movimiento" />
-    <meta property="og:description" content="Pedidos, comercios y distribución de última milla en una experiencia directa y trazable." />
+    <meta property="og:title" content="DELIVER ASSETS — Logística urbana en movimiento" />
+    <meta property="og:description" content="Pedidos, tracking, comercios y última milla en un sistema operativo urbano." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://morimilpabfelon-cell.github.io/DELIVER-ASESSET-prime/" />
-    <meta property="og:image" content="https://morimilpabfelon-cell.github.io/DELIVER-ASESSET-prime/assets/og-deliver-assets.svg" />
-    <title>DELIVER ASSETS — Night Master</title>
+    <title>DELIVER ASSETS — Logística urbana en movimiento</title>
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./figma-night.css" />
-    <script src="./figma-night.js" defer></script>
+    <link rel="preload" href="./assets/logo-original.svg" as="image" type="image/svg+xml" />
+    <link rel="stylesheet" href="./editorial-production.css" />
+    <script src="./editorial-production.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
-    <div class="site">
-      <div class="canvas-gap" aria-hidden="true"></div>
-      <header class="header" data-header>
-        <div class="header-main">
-          <button class="menu" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu>
-            <span aria-hidden="true"></span><span aria-hidden="true"></span><span class="sr-only">Abrir navegación</span>
-          </button>
-          <a class="brand" href="#inicio" aria-label="DELIVER ASSETS, ir al inicio"><span>DELIVER</span><strong>ASSETS</strong></a>
-          <div class="header-actions">
-            <a class="btn btn-outline" href="#experiencia">EXPLORAR PLATAFORMA</a>
-            <button class="btn btn-yellow" type="button" data-contact>CONTACTAR</button>
+
+    <div class="ticker" aria-label="Propuesta de valor">
+      <div class="ticker-track" aria-hidden="true">
+        <span>ENTREGAS URBANAS</span><i>✦</i><span>TRACKING EN TIEMPO REAL</span><i>✦</i>
+        <span>OPERACIÓN PARA NEGOCIOS</span><i>✦</i><span>RED DE REPARTIDORES</span><i>✦</i>
+        <span>ENTREGAS URBANAS</span><i>✦</i><span>TRACKING EN TIEMPO REAL</span><i>✦</i>
+        <span>OPERACIÓN PARA NEGOCIOS</span><i>✦</i><span>RED DE REPARTIDORES</span><i>✦</i>
+      </div>
+    </div>
+
+    <header class="site-header" data-header>
+      <div class="header-inner">
+        <a class="brand" href="#inicio" aria-label="DELIVER ASSETS, volver al inicio">
+          <img src="./assets/logo-original.svg" width="54" height="52" alt="" />
+          <span><b>DELIVER</b><strong>ASSETS</strong></span>
+        </a>
+
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu>
+          <span></span><span></span><span class="sr-only">Abrir navegación</span>
+        </button>
+
+        <nav class="primary-nav" id="primary-nav" aria-label="Navegación principal" data-nav>
+          <a href="#servicios">Servicios</a>
+          <a href="#tracking">Tracking</a>
+          <a href="#negocios">Negocios</a>
+          <a href="#repartidores">Repartidores</a>
+          <a href="#seguridad">Seguridad</a>
+          <a href="#preguntas">Ayuda</a>
+        </nav>
+
+        <button class="button button-dark header-cta" type="button" data-contact>CONTACTAR</button>
+      </div>
+    </header>
+
+    <main id="contenido">
+      <section class="hero section-shell" id="inicio" aria-labelledby="hero-title">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">01 / LOGÍSTICA URBANA</p>
+          <h1 id="hero-title"><span>MOVE</span><strong>THE CITY.</strong></h1>
+          <p class="hero-lead">Una plataforma para pedir, coordinar y seguir entregas urbanas sin perder visibilidad operativa.</p>
+
+          <form class="hero-tracking" data-tracking-form>
+            <label for="hero-code">Rastrear un pedido</label>
+            <div class="tracking-input">
+              <input id="hero-code" name="code" autocomplete="off" inputmode="text" placeholder="Ej. DA-0064" maxlength="24" />
+              <button class="button button-red" type="submit">RASTREAR</button>
+            </div>
+            <small>Demostración interactiva. La integración con datos reales se conecta en la siguiente fase.</small>
+          </form>
+
+          <ul class="hero-points" aria-label="Capacidades principales">
+            <li><b>RUTAS</b><span>Coordinación visible.</span></li>
+            <li><b>ESTADOS</b><span>Seguimiento claro.</span></li>
+            <li><b>ECOSISTEMA</b><span>Cliente, negocio y rider.</span></li>
+          </ul>
+        </div>
+
+        <div class="hero-visual reveal" aria-label="Visualización de una red urbana de entregas">
+          <div class="sun" aria-hidden="true"></div>
+          <svg class="city-map" viewBox="0 0 760 620" role="img" aria-labelledby="map-title map-desc">
+            <title id="map-title">Red urbana de DELIVER ASSETS</title>
+            <desc id="map-desc">Mapa gráfico con edificios, rutas, ubicaciones, vehículos y paquetes.</desc>
+            <defs>
+              <pattern id="grid" width="46" height="46" patternUnits="userSpaceOnUse">
+                <path d="M46 0H0V46" fill="none" stroke="currentColor" stroke-width="1" opacity=".22"/>
+              </pattern>
+              <filter id="rough">
+                <feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="1" seed="8" result="noise"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.2"/>
+              </filter>
+            </defs>
+            <rect x="0" y="0" width="760" height="620" fill="url(#grid)" class="map-grid"/>
+            <g class="skyline" filter="url(#rough)">
+              <rect x="412" y="72" width="48" height="205"/>
+              <rect x="470" y="118" width="38" height="159"/>
+              <rect x="518" y="40" width="63" height="237"/>
+              <rect x="592" y="102" width="46" height="175"/>
+              <rect x="650" y="68" width="58" height="209"/>
+              <path d="M402 277H724"/>
+            </g>
+            <path class="route route-a" d="M72 470C160 410 194 520 278 448S410 330 485 360 596 426 690 284"/>
+            <path class="route-shadow" d="M72 470C160 410 194 520 278 448S410 330 485 360 596 426 690 284"/>
+            <g class="pins">
+              <g transform="translate(58 432)"><path d="M20 0C9 0 0 9 0 20c0 16 20 34 20 34s20-18 20-34C40 9 31 0 20 0Z"/><circle cx="20" cy="19" r="7"/></g>
+              <g transform="translate(465 324)"><path d="M20 0C9 0 0 9 0 20c0 16 20 34 20 34s20-18 20-34C40 9 31 0 20 0Z"/><circle cx="20" cy="19" r="7"/></g>
+              <g transform="translate(670 238)"><path d="M20 0C9 0 0 9 0 20c0 16 20 34 20 34s20-18 20-34C40 9 31 0 20 0Z"/><circle cx="20" cy="19" r="7"/></g>
+            </g>
+            <g class="parcel parcel-one" transform="translate(570 254)"><path d="M0 16 28 0l34 13-28 17Z"/><path d="M0 16v38l34 16V30Z"/><path d="M62 13v39L34 70V30Z"/></g>
+            <g class="parcel parcel-two" transform="translate(296 186) scale(.72)"><path d="M0 16 28 0l34 13-28 17Z"/><path d="M0 16v38l34 16V30Z"/><path d="M62 13v39L34 70V30Z"/></g>
+            <g class="van" transform="translate(470 412)"><rect x="0" y="18" width="126" height="58" rx="8"/><path d="M91 18h24l24 28v30H91Z"/><circle cx="30" cy="80" r="14"/><circle cx="110" cy="80" r="14"/><path d="M16 34h58v25H16z" class="van-mark"/></g>
+            <g class="scooter" transform="translate(165 390)"><circle cx="38" cy="94" r="26"/><circle cx="152" cy="94" r="26"/><path d="M42 92h78l28-46h22" fill="none"/><path d="M80 66h50l-12 27H58Z"/><path d="M78 40h58v42H78Z" class="scooter-box"/><circle cx="113" cy="22" r="17"/><path d="M108 39 92 68M109 43l31 18" fill="none"/></g>
+          </svg>
+
+          <div class="visual-card eta-card"><span>ETA</span><strong data-eta>12 MIN</strong><small>Ruta activa</small></div>
+          <div class="visual-card status-card"><span>ESTADO</span><strong data-hero-status>EN CAMINO</strong><small>Actualización visible</small></div>
+          <div class="brand-stamp"><img src="./assets/logo-original.svg" width="76" height="74" alt="" /></div>
+        </div>
+      </section>
+
+      <section class="service-section section-shell" id="servicios" aria-labelledby="services-title">
+        <div class="section-heading reveal">
+          <p class="eyebrow">02 / SERVICIOS</p>
+          <h2 id="services-title">TODO LO QUE SE MUEVE<br />NECESITA CONTROL.</h2>
+          <p>La interfaz pública presenta servicios reales como componentes navegables, no como texto incrustado dentro de una imagen.</p>
+        </div>
+
+        <div class="service-grid">
+          <article class="service-card reveal"><span class="card-index">01</span><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 18h32v30H10zM42 28h8l8 10v10H42zM18 52a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm30 0a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"/></svg><h3>ENVÍOS URBANOS</h3><p>Paquetes, documentos y entregas programadas con estados visibles.</p><a href="#tracking">Rastrear entrega <span>→</span></a></article>
+          <article class="service-card reveal"><span class="card-index">02</span><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 12h10l6 32h24l6-22H24M28 52h1M47 52h1"/></svg><h3>PEDIDOS LOCALES</h3><p>Comercios, restaurantes y mercados conectados a una misma operación.</p><a href="#como-funciona">Ver proceso <span>→</span></a></article>
+          <article class="service-card reveal"><span class="card-index">03</span><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M14 50V20l18-10 18 10v30M24 50V34h16v16M21 25h4M39 25h4"/></svg><h3>DELIVER PRO</h3><p>Herramientas operativas para negocios, pedidos, rutas y despacho.</p><a href="#negocios">Explorar negocio <span>→</span></a></article>
+          <article class="service-card reveal"><span class="card-index">04</span><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 42c8-13 13-20 22-24 8-4 15-3 20 0M11 43c14 2 27-1 40-12M14 48h38"/></svg><h3>RED RIDER</h3><p>Experiencia separada para repartidores, con ruta, estados y soporte.</p><a href="#repartidores">Conocer la red <span>→</span></a></article>
+        </div>
+      </section>
+
+      <section class="process-section" id="como-funciona" aria-labelledby="process-title">
+        <div class="section-shell">
+          <div class="section-heading light reveal"><p class="eyebrow">03 / CÓMO FUNCIONA</p><h2 id="process-title">PIDE. MIRA.<br />RECIBE.</h2></div>
+          <ol class="process-grid">
+            <li class="process-card reveal"><span>01</span><h3>PIDE</h3><p>Selecciona el servicio, origen, destino y ventana de entrega.</p></li>
+            <li class="process-card featured reveal"><span>02</span><h3>MIRA</h3><p>Sigue el estado operativo desde la confirmación hasta la llegada.</p></li>
+            <li class="process-card reveal"><span>03</span><h3>RECIBE</h3><p>Confirma la entrega y conserva el historial del movimiento.</p></li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="tracking-section section-shell" id="tracking" aria-labelledby="tracking-title">
+        <div class="tracking-copy reveal">
+          <p class="eyebrow">04 / TRACKING</p>
+          <h2 id="tracking-title">CADA MOVIMIENTO.<br />UN ESTADO CLARO.</h2>
+          <p>Este módulo ya funciona como interfaz real. El código ingresado controla una demostración accesible; después se sustituye por la API de tracking.</p>
+          <form class="tracking-form" data-tracking-form><label for="tracking-code">Código de seguimiento</label><div class="tracking-input"><input id="tracking-code" name="code" autocomplete="off" placeholder="DA-0064" maxlength="24" /><button class="button button-blue" type="submit">CONSULTAR</button></div></form>
+          <div class="tracking-result" role="status" aria-live="polite"><span data-result-code>DA-0064</span><strong data-result-status>EN CAMINO</strong><small data-result-message>El repartidor se dirige al punto de entrega.</small></div>
+        </div>
+
+        <div class="tracking-panel reveal">
+          <div class="map-panel" aria-hidden="true">
+            <div class="map-grid-css"></div>
+            <svg viewBox="0 0 620 360"><path class="route-demo" data-route d="M42 285C116 235 154 286 218 224S354 165 405 192 506 216 574 91"/><g class="route-pin start" transform="translate(24 267)"><path d="M18 0C8 0 0 8 0 18c0 14 18 31 18 31s18-17 18-31C36 8 28 0 18 0Z"/><circle cx="18" cy="17" r="6"/></g><g class="route-pin end" transform="translate(555 72)"><path d="M18 0C8 0 0 8 0 18c0 14 18 31 18 31s18-17 18-31C36 8 28 0 18 0Z"/><circle cx="18" cy="17" r="6"/></g><g class="rider-marker" data-rider transform="translate(198 196)"><circle cx="18" cy="18" r="18"/><path d="M11 19h14l6 8M13 19l-5 9M8 29h25"/></g></svg>
+          </div>
+          <ol class="status-timeline"><li class="is-complete" data-step="0"><i></i><span><b>CONFIRMADO</b><small>Solicitud registrada.</small></span></li><li class="is-complete" data-step="1"><i></i><span><b>RECOGIDO</b><small>Paquete en custodia.</small></span></li><li class="is-active" data-step="2"><i></i><span><b>EN CAMINO</b><small>Ruta en progreso.</small></span></li><li data-step="3"><i></i><span><b>ENTREGADO</b><small>Confirmación pendiente.</small></span></li></ol>
+        </div>
+      </section>
+
+      <section class="coverage-section" id="cobertura" aria-labelledby="coverage-title">
+        <div class="section-shell coverage-grid">
+          <div class="coverage-art reveal" aria-hidden="true"><div class="coverage-sun"></div><div class="coverage-city"><i style="--h:42%"></i><i style="--h:68%"></i><i style="--h:54%"></i><i style="--h:86%"></i><i style="--h:62%"></i><i style="--h:96%"></i><i style="--h:72%"></i></div><svg viewBox="0 0 640 420"><path d="M30 350C132 280 180 370 260 288S402 174 475 214 544 178 606 82"/><circle cx="31" cy="349" r="13"/><circle cx="260" cy="288" r="13"/><circle cx="475" cy="214" r="13"/><circle cx="606" cy="82" r="13"/></svg></div>
+          <div class="coverage-copy reveal"><p class="eyebrow">05 / COBERTURA</p><h2 id="coverage-title">UNA RED QUE CRECE<br />POR ZONAS.</h2><p>La cobertura debe mostrar ciudades y distritos confirmados desde datos reales. Mientras esa fuente se conecta, la interfaz distingue claramente entre operación disponible y expansión prevista.</p><div class="coverage-list"><article><span>ACTIVO</span><b>Zonas operativas</b><small>Conectadas a la fuente de cobertura.</small></article><article><span>PRÓXIMO</span><b>Expansión planificada</b><small>Visible sin prometer fechas no verificadas.</small></article><article><span>ALERTA</span><b>Disponibilidad dinámica</b><small>Capacidad y horario por zona.</small></article></div></div>
+        </div>
+      </section>
+
+      <section class="business-section section-shell" id="negocios" aria-labelledby="business-title">
+        <div class="business-copy reveal"><p class="eyebrow">06 / DELIVER PRO</p><h2 id="business-title">VENDE MÁS.<br />OPERA MEJOR.</h2><p>Pedidos, rutas, rendimiento y atención dentro de una vista operativa diseñada para negocios locales.</p><ul class="check-list"><li>Gestión de pedidos y estados</li><li>Visibilidad de rutas activas</li><li>Catálogo y disponibilidad</li><li>Reportes operativos verificables</li></ul><button class="button button-red" type="button" data-contact>HABLAR SOBRE DELIVER PRO</button></div>
+
+        <div class="dashboard reveal" aria-label="Vista de ejemplo de Deliver Pro">
+          <aside><div class="dash-brand"><img src="./assets/logo-original.svg" alt="" /><b>PRO</b></div><button class="is-active">Resumen</button><button>Pedidos</button><button>Rutas</button><button>Equipo</button><button>Soporte</button></aside>
+          <div class="dash-main"><div class="dash-head"><div><small>OPERACIÓN</small><h3>Resumen</h3></div><span>DEMO</span></div><div class="metric-grid"><article><small>Pedidos activos</small><strong>—</strong><span>Fuente pendiente</span></article><article><small>Rutas en curso</small><strong>—</strong><span>Fuente pendiente</span></article><article><small>Entrega a tiempo</small><strong>—</strong><span>Sin datos inventados</span></article></div><div class="dash-chart"><div class="bars" aria-hidden="true"><i style="--v:36%"></i><i style="--v:58%"></i><i style="--v:48%"></i><i style="--v:74%"></i><i style="--v:64%"></i><i style="--v:88%"></i><i style="--v:71%"></i></div><div class="dash-map"><span></span><span></span><span></span><svg viewBox="0 0 360 180"><path d="M20 142C84 94 112 151 162 104S248 54 334 34"/></svg></div></div></div>
+        </div>
+      </section>
+
+      <section class="rider-section" id="repartidores" aria-labelledby="rider-title">
+        <div class="section-shell rider-grid">
+          <div class="rider-visual reveal"><div class="rider-poster"><p>RIDE<br />THE<br />CITY.</p><div class="rider-illustration" aria-hidden="true"><i class="helmet"></i><i class="body"></i><i class="bag"></i><i class="wheel one"></i><i class="wheel two"></i></div><span>RED RIDER / DELIVER ASSETS</span></div></div>
+          <div class="rider-copy reveal"><p class="eyebrow">07 / REPARTIDORES</p><h2 id="rider-title">MUÉVETE.<br />ENTREGA.<br />AVANZA.</h2><p>La experiencia rider se mantiene separada del cliente y del negocio. Cada rol necesita flujos, permisos y métricas propios.</p><div class="rider-benefits"><article><b>RUTA</b><span>Origen, destino y secuencia.</span></article><article><b>ESTADOS</b><span>Aceptado, recogido y entregado.</span></article><article><b>SOPORTE</b><span>Incidencias y ayuda operativa.</span></article></div><button class="button button-blue" type="button" data-contact>CONOCER LA EXPERIENCIA RIDER</button></div>
+        </div>
+      </section>
+
+      <section class="safety-section section-shell" id="seguridad" aria-labelledby="safety-title">
+        <div class="section-heading reveal"><p class="eyebrow">08 / CONFIANZA</p><h2 id="safety-title">SEGURIDAD QUE SE<br />PUEDE EXPLICAR.</h2><p>La confianza no se resuelve con íconos decorativos. Requiere estados, evidencias, políticas y responsables visibles.</p></div>
+        <div class="safety-grid"><article class="reveal"><span>01</span><h3>TRAZABILIDAD</h3><p>Registro de eventos desde la solicitud hasta la confirmación final.</p></article><article class="reveal"><span>02</span><h3>DATOS</h3><p>Privacidad, permisos y exposición mínima por cada tipo de usuario.</p></article><article class="reveal"><span>03</span><h3>INCIDENCIAS</h3><p>Canal claro para reportar problemas y preservar el contexto operativo.</p></article><article class="reveal"><span>04</span><h3>SOPORTE</h3><p>Respuesta visible, estados del caso y cierre verificable.</p></article></div>
+      </section>
+
+      <section class="faq-section" id="preguntas" aria-labelledby="faq-title">
+        <div class="section-shell faq-grid">
+          <div class="faq-copy reveal"><p class="eyebrow">09 / AYUDA</p><h2 id="faq-title">PREGUNTAS<br />DIRECTAS.</h2><p>Contenido editable, indexable y accesible. No está atrapado dentro de un póster estático.</p></div>
+          <div class="accordion reveal" data-accordion>
+            <article><h3><button type="button" aria-expanded="true">¿La web ya conecta pedidos reales?<span>−</span></button></h3><div><p>Todavía no. Esta rama construye la interfaz productiva. La API de pedidos y tracking se conecta después de validar contratos, estados y errores.</p></div></article>
+            <article><h3><button type="button" aria-expanded="false">¿Las imágenes generadas se descartan?<span>+</span></button></h3><div hidden><p>No. Se conservan como campaña, redes, Open Graph y dirección artística. La interfaz funcional se reconstruye con HTML, CSS, SVG y datos reales.</p></div></article>
+            <article><h3><button type="button" aria-expanded="false">¿Cliente, negocio y rider son la misma aplicación?<span>+</span></button></h3><div hidden><p>No. Comparten identidad y contratos, pero cada rol mantiene navegación, permisos, estados y objetivos separados.</p></div></article>
+            <article><h3><button type="button" aria-expanded="false">¿La página funciona en móvil?<span>+</span></button></h3><div hidden><p>Sí. La estructura se reorganiza en móvil, reduce movimiento cuando corresponde y conserva texto, controles y jerarquía.</p></div></article>
           </div>
         </div>
-        <nav class="nav" id="primary-nav" aria-label="Navegación principal" data-nav>
-          <a class="is-active" href="#explorar">EXPLORAR</a>
-          <a href="#como-funciona">CÓMO FUNCIONA</a>
-          <a href="#negocios">NEGOCIOS</a>
-          <a href="#repartidores">REPARTIDORES</a>
-          <a href="#cobertura">COBERTURA</a>
-          <a href="#seguridad">SEGURIDAD</a>
-        </nav>
-      </header>
+      </section>
 
-      <main id="contenido">
-        <section class="hero" id="inicio" aria-labelledby="hero-title">
-          <div class="hero-shade" aria-hidden="true"></div>
-          <div class="hero-content">
-            <p class="eyebrow-pill">ENTREGA ESTIMADA · 12 MIN</p>
-            <h1 id="hero-title"><span>DELIVER</span><strong>ASSETS</strong></h1>
-            <p class="hero-lead">Una plataforma en movimiento para conectar personas, comercios y repartidores en tiempo real.</p>
-            <div class="hero-actions">
-              <a class="btn btn-yellow" href="#explorar">PEDIR AHORA</a>
-              <a class="btn btn-outline" href="#experiencia">ENTRAR AL ECOSISTEMA</a>
-            </div>
-            <ul class="hero-trust" aria-label="Principios de la plataforma">
-              <li><i>R</i><span><b>RÁPIDO</b><small>Entregas en minutos.</small></span></li>
-              <li><i>S</i><span><b>SEGURO</b><small>Seguimiento en tiempo real.</small></span></li>
-              <li><i>C</i><span><b>CONFIABLE</b><small>Siempre disponible.</small></span></li>
-            </ul>
-          </div>
-        </section>
+      <section class="final-cta"><div class="section-shell reveal"><img src="./assets/logo-original.svg" width="118" height="114" alt="" /><p class="eyebrow">10 / SIGUIENTE MOVIMIENTO</p><h2>DELIVER DIFFERENTLY.</h2><p>Primero cerramos la web pública. Después pasamos a Customer, Business, Rider y Control sin mezclar sus flujos.</p><button class="button button-dark" type="button" data-contact>ABRIR CONVERSACIÓN</button></div></section>
+    </main>
 
-        <section class="categories" id="explorar" aria-labelledby="categories-title">
-          <p class="section-kicker">02 / QUÉ NECESITAS HOY</p>
-          <h2 id="categories-title">¿QUÉ NECESITAS HOY?</h2>
-          <div class="category-grid">
-            <button class="category-card" type="button" data-category="comida">
-              <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M16 9v13M12 9v7c0 4 8 4 8 0V9M16 22v17M30 9v30M30 9c7 4 7 16 0 17"/></svg>
-              <b>COMIDA</b><small>Restaurantes y más.</small><span>→</span>
-            </button>
-            <button class="category-card" type="button" data-category="mercado">
-              <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 12h5l4 19h18l4-13H16M20 37h1M34 37h1"/></svg>
-              <b>MERCADO</b><small>Súper y tiendas.</small><span>→</span>
-            </button>
-            <button class="category-card" type="button" data-category="farmacia">
-              <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 10v28M10 24h28"/></svg>
-              <b>FARMACIA</b><small>Salud y bienestar.</small><span>→</span>
-            </button>
-            <button class="category-card" type="button" data-category="envios">
-              <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M7 14h23v20H7zM30 21h7l5 7v6H30zM14 38a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM35 38a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/></svg>
-              <b>ENVÍOS</b><small>Paquetes y documentos.</small><span>→</span>
-            </button>
-          </div>
-        </section>
-
-        <section class="trust-strip" id="cobertura" aria-label="Confianza y soporte">
-          <article><i>C</i><span><b>COBERTURA</b><small>Estamos donde nos necesitas.</small></span></article>
-          <article><i>S</i><span><b>SOPORTE</b><small>Ayuda siempre disponible.</small></span></article>
-          <article id="seguridad"><i>D</i><span><b>DATOS SEGUROS</b><small>Privacidad y protección.</small></span></article>
-          <article><i>D</i><span><b class="accent">DELIVER PRO</b><small>Soluciones para negocios.</small></span></article>
-        </section>
-
-        <section class="manifesto" aria-labelledby="manifesto-title">
-          <div class="manifesto-overlay" aria-hidden="true"></div>
-          <p class="section-kicker">03 / MANIFIESTO</p>
-          <h2 id="manifesto-title">NO ES SOLO<br />ENTREGAR.<br />ES MOVER<br />LA CIUDAD.</h2>
-          <p class="manifesto-copy">Deliver Assets reúne pedidos, comercios y distribución de última milla bajo una experiencia directa, rápida y trazable.</p>
-        </section>
-
-        <section class="experience" id="experiencia" aria-labelledby="experience-title">
-          <p class="section-kicker">04 / EXPERIENCIA INTERACTIVA</p>
-          <h2 id="experience-title">ARMA UN<br />PEDIDO.</h2>
-          <div class="catalog" aria-label="Catálogo de comercios">
-            <div class="tabs" role="tablist" aria-label="Categorías">
-              <button class="is-active" type="button" role="tab" aria-selected="true" data-tab="comida">COMIDA</button>
-              <button type="button" role="tab" aria-selected="false" data-tab="mercado">MERCADO</button>
-              <button type="button" role="tab" aria-selected="false" data-tab="farmacia">FARMACIA</button>
-              <button type="button" role="tab" aria-selected="false" data-tab="envios">ENVÍOS</button>
-            </div>
-            <ol class="stores">
-              <li class="is-active"><i>1</i><b data-store="1">BARRIO BURGER</b></li>
-              <li><i>2</i><b data-store="2">MERCADO CENTRAL</b></li>
-              <li><i>3</i><b data-store="3">FARMA EXPRESS</b></li>
-            </ol>
-          </div>
-          <div class="tracking" aria-label="Seguimiento del pedido">
-            <b>PEDIDO 0064</b>
-            <div class="tracking-map" role="img" aria-label="Mapa de seguimiento urbano"></div>
-            <h3>EN CAMINO</h3>
-          </div>
-        </section>
-
-        <section class="process" id="como-funciona" aria-labelledby="process-title">
-          <p class="section-kicker">05 / CÓMO FUNCIONA</p>
-          <h2 id="process-title">TRES PASOS. CERO RUIDO.</h2>
-          <div class="process-grid">
-            <article class="process-card pide"><i>1</i><h3>PIDE</h3><p>Elige y confirma.</p></article>
-            <article class="process-card mira"><i>2</i><h3>MIRA</h3><p>Sigue cada estado.</p></article>
-            <article class="process-card recibe"><i>3</i><h3>RECIBE</h3><p>Recibe con claridad.</p></article>
-          </div>
-        </section>
-
-        <section class="ecosystem" aria-label="Ecosistema DELIVER ASSETS">
-          <article class="ecosystem-card business" id="negocios">
-            <p class="section-kicker">06 / NEGOCIOS</p>
-            <h2>VENDE MÁS.<br />OPERA MEJOR.</h2>
-            <button class="btn btn-outline" type="button" data-contact>CONVERSAR COMO NEGOCIO</button>
-          </article>
-          <article class="ecosystem-card rider" id="repartidores">
-            <p class="section-kicker">07 / REPARTIDORES</p>
-            <h2>MUÉVETE.<br />ENTREGA.<br />AVANZA.</h2>
-            <button class="btn btn-yellow" type="button" data-contact>CONVERSAR COMO REPARTIDOR</button>
-          </article>
-        </section>
-
-        <section class="contact" aria-labelledby="contact-title">
-          <div><p class="section-kicker">08 / CONTACTO</p><h2 id="contact-title">LLEVEMOS ESTA VISIÓN<br />A LA CIUDAD.</h2></div>
-          <button class="btn btn-yellow" type="button" data-contact>CONTACTAR</button>
-        </section>
-      </main>
-
-      <footer class="footer">
-        <div><a class="footer-brand" href="#inicio"><span>DELIVER</span><strong>ASSETS</strong></a><div class="social" aria-label="Redes sociales"><span>◎</span><span>𝕏</span><span>in</span></div></div>
-        <p>© 2026 DELIVER ASSETS</p>
-        <div class="footer-dots" aria-hidden="true"><i></i><i></i><i></i></div>
-      </footer>
-    </div>
+    <footer class="site-footer">
+      <div class="section-shell footer-grid">
+        <div class="footer-brand"><img src="./assets/logo-original.svg" width="76" height="74" alt="" /><div><b>DELIVER</b><strong>ASSETS</strong><small>Logística urbana en movimiento.</small></div></div>
+        <div><b>PLATAFORMA</b><a href="#servicios">Servicios</a><a href="#tracking">Tracking</a><a href="#negocios">Deliver Pro</a><a href="#repartidores">Rider</a></div>
+        <div><b>CONFIANZA</b><a href="#seguridad">Seguridad</a><a href="#preguntas">Ayuda</a><a href="#cobertura">Cobertura</a></div>
+        <div><b>PROYECTO</b><a href="https://github.com/morimilpabfelon-cell/DELIVER-ASESSET-prime" target="_blank" rel="noreferrer">GitHub</a><button type="button" data-contact>Contacto</button></div>
+      </div>
+      <div class="footer-bottom section-shell"><span>© <span data-year></span> DELIVER ASSETS</span><span>RAMA: DESIGN / PUBLIC HOMEPAGE</span></div>
+    </footer>
 
     <dialog class="contact-dialog" data-dialog>
       <button class="dialog-close" type="button" aria-label="Cerrar" data-close>×</button>
-      <p class="section-kicker">DELIVER ASSETS</p>
+      <img src="./assets/logo-original.svg" width="84" height="81" alt="" />
+      <p class="eyebrow">DELIVER ASSETS</p>
       <h2>CONVERSEMOS.</h2>
-      <p>El canal público actual del proyecto es GitHub.</p>
-      <a class="btn btn-yellow" href="https://github.com/morimilpabfelon-cell/DELIVER-ASESSET-prime" target="_blank" rel="noreferrer">ABRIR PROYECTO</a>
+      <p>Este formulario todavía no envía datos. Se conectará al canal operativo definido para producción.</p>
+      <form data-contact-form>
+        <label>Nombre<input name="name" required autocomplete="name" /></label>
+        <label>Correo<input name="email" type="email" required autocomplete="email" /></label>
+        <label>Interés<select name="interest"><option>Envíos</option><option>Deliver Pro</option><option>Rider</option><option>Alianza</option></select></label>
+        <label>Mensaje<textarea name="message" rows="4" required></textarea></label>
+        <button class="button button-red" type="submit">VALIDAR FORMULARIO</button>
+      </form>
+      <p class="form-note" data-form-note role="status" aria-live="polite"></p>
     </dialog>
+
+    <div class="toast" data-toast role="status" aria-live="polite"></div>
   </body>
 </html>
