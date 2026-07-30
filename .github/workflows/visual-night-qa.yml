@@ -1,10 +1,24 @@
-name: Figma night visual QA
+name: Public homepage visual QA
 
 on:
   push:
-    branches: [feat/figma-night-rebuild]
+    branches: [design/public-homepage]
+    paths:
+      - 'index.html'
+      - 'editorial-production*.css'
+      - 'editorial-production.js'
+      - 'assets/**'
+      - 'scripts/**'
+      - '.github/workflows/visual-night-qa.yml'
   pull_request:
     branches: [main]
+    paths:
+      - 'index.html'
+      - 'editorial-production*.css'
+      - 'editorial-production.js'
+      - 'assets/**'
+      - 'scripts/**'
+      - '.github/workflows/visual-night-qa.yml'
   workflow_dispatch:
 
 permissions:
@@ -13,11 +27,21 @@ permissions:
 jobs:
   visual-qa:
     runs-on: ubuntu-latest
+    timeout-minutes: 12
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Configure Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24.x'
 
       - name: Verify static implementation
-        run: node scripts/verify-site.mjs
+        run: |
+          node scripts/verify-site.mjs
+          node scripts/check-web.mjs
+          node --check editorial-production.js
 
       - name: Install browser
         run: |
@@ -49,23 +73,44 @@ jobs:
             ['tablet', 768, 900],
             ['mobile', 390, 844],
           ];
-          const selectors = ['.header', '.hero', '.categories', '.trust-strip', '.manifesto', '.experience', '.process', '.ecosystem', '.contact', '.footer'];
+          const selectors = [
+            '.site-header',
+            '.hero',
+            '.service-section',
+            '.process-section',
+            '.tracking-section',
+            '.coverage-section',
+            '.business-section',
+            '.rider-section',
+            '.safety-section',
+            '.faq-section',
+            '.final-cta',
+            '.site-footer',
+          ];
+          const summaries = [];
 
           try {
             for (const [name, width, height] of views) {
               const page = await browser.newPage({ viewport: { width, height }, deviceScaleFactor: 1 });
-              const consoleErrors = [];
-              page.on('console', (message) => {
-                if (message.type() === 'error') consoleErrors.push(message.text());
-              });
-              page.on('pageerror', (error) => consoleErrors.push(error.message));
+              await page.emulateMedia({ reducedMotion: 'reduce' });
 
-              await page.goto('http://127.0.0.1:8080/', { waitUntil: 'load', timeout: 30000 });
-              await page.waitForFunction(() => document.documentElement.dataset.tuning === 'ready', null, { timeout: 10000 });
+              const browserErrors = [];
+              page.on('console', (message) => {
+                if (message.type() === 'error') browserErrors.push(message.text());
+              });
+              page.on('pageerror', (error) => browserErrors.push(error.message));
+              page.on('requestfailed', (request) => {
+                browserErrors.push(`Request failed: ${request.url()} (${request.failure()?.errorText ?? 'unknown'})`);
+              });
+
+              await page.goto('http://127.0.0.1:8080/', { waitUntil: 'networkidle', timeout: 30000 });
+              await page.waitForSelector('.site-header', { state: 'visible', timeout: 10000 });
+              await page.waitForFunction(() => document.documentElement.classList.contains('js'), null, { timeout: 10000 });
               await page.evaluate(async () => {
+                document.querySelectorAll('.reveal').forEach((node) => node.classList.add('is-visible'));
                 await Promise.race([
                   document.fonts.ready,
-                  new Promise((resolve) => setTimeout(resolve, 5000)),
+                  new Promise((resolve) => setTimeout(resolve, 3000)),
                 ]);
               });
 
@@ -74,55 +119,60 @@ jobs:
                   const node = document.querySelector(selector);
                   if (!node) return [selector, null];
                   const rect = node.getBoundingClientRect();
-                  return [selector, { x: rect.x, y: rect.y + scrollY, width: rect.width, height: rect.height }];
+                  return [selector, {
+                    x: Math.round(rect.x),
+                    y: Math.round(rect.y + scrollY),
+                    width: Math.round(rect.width),
+                    height: Math.round(rect.height),
+                  }];
                 }));
+                const documentWidth = document.documentElement.scrollWidth;
                 return {
+                  title: document.title,
+                  theme: document.documentElement.dataset.theme,
                   viewport: { width: innerWidth, height: innerHeight },
-                  document: { width: document.documentElement.scrollWidth, height: document.documentElement.scrollHeight },
-                  font: {
-                    loaded: document.fonts.check('900 16px Inter'),
-                    family: getComputedStyle(document.querySelector('.hero h1')).fontFamily,
+                  document: {
+                    width: documentWidth,
+                    height: document.documentElement.scrollHeight,
+                    horizontalOverflow: Math.max(0, documentWidth - innerWidth),
                   },
-                  tuning: document.documentElement.dataset.tuning,
+                  displayFont: getComputedStyle(document.querySelector('.hero h1')).fontFamily,
+                  missingSelectors: targets.filter((selector) => !document.querySelector(selector)),
                   rects,
                 };
               }, selectors);
 
+              if (metrics.theme !== 'editorial-production') {
+                browserErrors.push(`Unexpected theme: ${metrics.theme}`);
+              }
+              if (metrics.missingSelectors.length) {
+                browserErrors.push(`Missing selectors: ${metrics.missingSelectors.join(', ')}`);
+              }
+              if (metrics.document.horizontalOverflow > 1) {
+                browserErrors.push(`Horizontal overflow: ${metrics.document.horizontalOverflow}px`);
+              }
+
               await page.screenshot({ path: `visual/actual/${name}.png`, fullPage: true });
               await writeFile(`visual/actual/${name}-metrics.json`, JSON.stringify(metrics, null, 2));
-              console.log(`${name}: ${metrics.document.width}x${metrics.document.height}; Inter=${metrics.font.loaded}; tuning=${metrics.tuning}`);
-              if (consoleErrors.length) console.warn(`${name} browser errors: ${consoleErrors.join(' | ')}`);
+              summaries.push({ name, ...metrics, browserErrors });
+
+              console.log(`${name}: ${metrics.document.width}x${metrics.document.height}; overflow=${metrics.document.horizontalOverflow}px; theme=${metrics.theme}`);
+              if (browserErrors.length) {
+                throw new Error(`${name} visual QA failed: ${browserErrors.join(' | ')}`);
+              }
+
               await page.close();
             }
           } finally {
+            await writeFile('visual/actual/summary.json', JSON.stringify(summaries, null, 2));
             await browser.close();
           }
           EOF
           node visual/runtime/capture.mjs
 
-      - name: Download current Figma references
-        shell: bash
-        run: |
-          mkdir -p visual/reference
-          curl -L --fail --retry 3 'https://www.figma.com/api/mcp/asset/eb9c5f7c-405a-483b-842e-be8824ca6d0b' -o visual/reference/desktop.png
-          curl -L --fail --retry 3 'https://www.figma.com/api/mcp/asset/681e338f-a2db-4c63-bbcb-7f4984d3c43d' -o visual/reference/tablet.png
-          curl -L --fail --retry 3 'https://www.figma.com/api/mcp/asset/bbf928c2-85db-43d9-a9b9-b401120359a1' -o visual/reference/mobile.png
-
-      - name: Generate visual contact sheets
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y imagemagick >/dev/null
-          mkdir -p visual/compare
-          for view in desktop tablet mobile; do
-            ref_size=$(identify -format '%wx%h' "visual/reference/$view.png")
-            convert "visual/actual/$view.png" -resize "$ref_size!" "visual/compare/${view}-actual-normalized.png"
-            convert "visual/reference/$view.png" "visual/compare/${view}-actual-normalized.png" +append "visual/compare/${view}-side-by-side.png"
-            compare -metric RMSE "visual/reference/$view.png" "visual/compare/${view}-actual-normalized.png" "visual/compare/${view}-diff.png" 2> "visual/compare/${view}-rmse.txt" || true
-            echo "$view RMSE: $(cat visual/compare/${view}-rmse.txt)"
-          done
-
-      - uses: actions/upload-artifact@v4
+      - name: Upload visual review artifact
+        uses: actions/upload-artifact@v4
         with:
-          name: figma-night-visual-qa
-          path: visual
+          name: public-homepage-visual-qa
+          path: visual/actual
           retention-days: 14
