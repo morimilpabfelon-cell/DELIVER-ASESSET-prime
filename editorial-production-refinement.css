@@ -5,8 +5,10 @@
 .rider-marker{transform:translate(198px,196px);transform-box:fill-box;transform-origin:center;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
 .contact-dialog{max-height:min(90vh,760px);overflow:auto}
 .ticker:hover .ticker-track,.ticker:focus-within .ticker-track{animation-play-state:paused}
+.hero>*,.tracking-section>*,.business-section>*,.coverage-grid>*,.rider-grid>*,.faq-grid>*,.dashboard>*,.dash-main{min-width:0}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.site-header{background:var(--cream)}}
 @media (max-width:1120px){:root{--shell:min(calc(100% - 36px),980px)}}
+@media (max-width:900px){.dashboard{grid-template-columns:1fr;min-height:0}.dashboard aside{padding:12px;flex-direction:row;overflow-x:auto;border-right:0;border-bottom:2px solid var(--ink)}.dash-brand{margin:0 10px 0 0}.dashboard aside button{white-space:nowrap}.dash-main{padding:18px}.dash-chart{grid-template-columns:1fr 1fr}.bars,.dash-map{min-width:0}}
 @media (min-width:761px) and (max-width:820px){.brand span{display:none}.primary-nav{gap:12px}.primary-nav a{font-size:.68rem}}
 @media (hover:none){.button:hover{transform:none;box-shadow:5px 5px 0 var(--ink)}.tracking-input .button:hover{box-shadow:none}.service-card:hover{transform:none;background:var(--cream-soft)}}
 @media (max-width:760px){:root{--shell:min(calc(100% - 24px),620px)}}
