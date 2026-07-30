@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 708" role="img" aria-labelledby="title desc">
+  <title id="title">Símbolo original de DELIVER ASSETS</title>
+  <desc id="desc">Vector trazado desde el monograma original rojo de la marca.</desc>
+  <defs>
+    <filter id="print" x="-3%" y="-3%" width="106%" height="106%">
+      <feTurbulence type="fractalNoise" baseFrequency=".7" numOctaves="1" seed="7" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale=".7"/>
+    </filter>
+  </defs>
+  <path d="M 462 0 L 0 0 L 0 140 L 255 140 L 121 232 L 22 315 L 2 415 L 3 706 L 402 706 L 452 501 L 456 710 L 710 710 L 1000 706 L 1000 0 L 630 0 L 582 139 L 682 139 L 581 488 L 527 488 L 461 706 L 404 706 L 462 0 Z M 335 143 L 413 143 L 386 222 L 345 225 L 292 218 L 255 199 L 270 169 L 335 143 Z M 685 145 L 819 145 L 832 157 L 840 181 L 840 237 L 834 288 L 812 329 L 781 348 L 743 353 L 704 349 L 678 329 L 667 296 L 669 254 L 685 145 Z" fill="#e53935" fill-rule="evenodd" filter="url(#print)"/>
+</svg>

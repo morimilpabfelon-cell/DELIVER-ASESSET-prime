@@ -1,4 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#111"/>
-  <path d="M13 14h18c12 0 20 7 20 18S43 50 31 50H13V14Zm12 10v16h6c5.5 0 8-3 8-8s-2.5-8-8-8h-6Z" fill="#ffbe18"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title id="title">DELIVER ASSETS</title>
+  <rect width="128" height="128" rx="24" fill="#ffd233"/>
+  <g transform="translate(14 28) scale(.1)">
+    <path d="M462 0H0v140h255l-134 92-99 83-20 100 1 291h399l50-205 4 209h254l290-4V0H630l-48 139h100L581 488h-54l-66 218h-57L462 0Zm-127 143h78l-27 79-41 3-53-7-37-19 15-30 65-26Zm350 2h134l13 12 8 24v56l-6 51-22 41-31 19-38 5-39-4-26-20-11-33 2-42 16-109Z" fill="#e53935" fill-rule="evenodd"/>
+  </g>
 </svg>

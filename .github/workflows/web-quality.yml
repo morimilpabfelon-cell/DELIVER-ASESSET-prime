@@ -1,0 +1,40 @@
+name: Web quality
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'editorial-production*.css'
+      - 'editorial-production.js'
+      - 'assets/**'
+      - 'scripts/check-web.mjs'
+      - '.github/workflows/web-quality.yml'
+  push:
+    branches: [design/public-homepage]
+    paths:
+      - 'index.html'
+      - 'editorial-production*.css'
+      - 'editorial-production.js'
+      - 'assets/**'
+      - 'scripts/check-web.mjs'
+      - '.github/workflows/web-quality.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  static-validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+      - name: Configure Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24.x'
+      - name: Validate JavaScript syntax
+        run: node --check editorial-production.js
+      - name: Validate web integrity
+        run: node scripts/check-web.mjs
